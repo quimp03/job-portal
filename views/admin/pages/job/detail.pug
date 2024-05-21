@@ -1,0 +1,28 @@
+extends ../../layouts/default.pug
+
+block main
+  if (jobs.companyName)
+    h1(class="mb-4") #{jobs.companyName}
+  if (jobs.thumbnail)
+    div(class="mb-4")
+      img(
+        src=jobs.thumbnail
+        style="width: 200px"
+      )
+  if (jobs.title)
+    div(class="mb-4") #{`Vị trí công việc: ${jobs.title}`}
+  if (jobs.salary)
+    div(class="mb-4") #{`Mức lương: ${jobs.salary}$`}
+  if (jobs.description)
+    div(class="mb-4") #{`Mô tả công việc: ${jobs.description}`}
+  if (jobs.location)
+    div(class="mb-4") #{`Vị trí công ty: ${jobs.location}`}
+  if (jobs.status)
+    div(class="mb-4")
+      span Trạng thái : 
+      if (jobs.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+  if (jobs.typejob)
+    div(class="mb-4") #{`Loại công việc: ${jobs.typejob}`}
