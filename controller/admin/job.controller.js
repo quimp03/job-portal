@@ -1,4 +1,4 @@
-const Job = require("../../model/jobs.model")
+const Job = require("../../models/jobs.model")
 const filterHelper = require("../../helpers/filter.helper")
 const paginationHelper = require("../../helpers/pagination.helper")
 module.exports.index = async(req, res) => {
@@ -14,7 +14,7 @@ module.exports.index = async(req, res) => {
 // Search
     if(req.query.keyword) {
         const regex = new RegExp(req.query.keyword, "i");
-        find.title = regex;
+        find.companyName = regex;
     }
 // End Search
 // Pagination

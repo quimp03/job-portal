@@ -164,3 +164,153 @@ if(showAlert) {
   });
 }
 // End show-alert
+//upload-img
+const uploadImage = document.querySelector("[upload-image]")
+if(uploadImage){
+    const uploadImageInput = uploadImage.querySelector("[upload-image-input]")
+    const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]")
+    uploadImageInput.addEventListener("change",()  => {
+        const file =uploadImageInput.files[0]
+        if(file){
+            uploadImagePreview.src = URL.createObjectURL(file)
+        }
+    })
+}
+//end-upload-img
+
+// button-changeStatus-jobs-category
+const listBtnChangeStatusJobsCategory = document.querySelectorAll("[button-change-status-category]")
+if(listBtnChangeStatusJobsCategory.length > 0){
+  const formChangeStatusJobsCategory = document.querySelector("[form-change-status-jobscategory]")
+  listBtnChangeStatusJobsCategory.forEach(button => {
+    button.addEventListener("click", () => {
+      const status = button.getAttribute("data-status")
+      const id = button.getAttribute("data-id")
+      const path = formChangeStatusJobsCategory.getAttribute("data-path")
+      const action = `${path}/${status}/${id}?_method=patch`
+      formChangeStatusJobsCategory.action = action
+      formChangeStatusJobsCategory.submit();
+    })
+  })
+}
+//end button-changeStatus-jobs-category
+//delete-category
+const listBtnDeleteCategory = document.querySelectorAll("[button-delete-category]")
+if(listBtnDeleteCategory.length > 0){
+  const formDeleteCategory = document.querySelector("[form-delete-category]")
+  listBtnDeleteCategory.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id")
+      const path = formDeleteCategory.getAttribute("data-path")
+      const isConfirm = confirm("Bạn có chắc muốn xóa không?")
+      const action = `${path}/${id}?_method=DELETE`
+      if(isConfirm){
+        formDeleteCategory.action = action
+      formDeleteCategory.submit()
+      }
+    })
+  })
+}
+//end delete-category
+
+//delete role
+const listBtnDeleteRole = document.querySelectorAll("[button-delete-role]")
+if(listBtnDeleteRole.length > 0){
+  const frmDeleteRole = document.querySelector("[form-delete-role]")
+  listBtnDeleteRole.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id")
+      const path = frmDeleteRole.getAttribute("data-path")
+      const action = `${path}/${id}?_method=DELETE`
+      const isConfirm = confirm("Bạn có chắc muốn xóa không?")
+      if(isConfirm){
+        frmDeleteRole.action = action
+        frmDeleteRole.submit()
+      }
+    })
+  })
+}
+//Table permisstions
+const buttonSubmitPermission = document.querySelector("[button-submit-permissions]")
+if(buttonSubmitPermission){
+  buttonSubmitPermission.addEventListener("click",() => {
+    const roles = []
+  const tablePermissions = document.querySelector("[table-permissions]")
+  const rows = tablePermissions.querySelectorAll("tbody tr[data-name]")
+  rows.forEach((row, index) => {
+    const dataName = row.getAttribute("data-name")
+    const inputs = row.querySelectorAll("input")
+    if(dataName == "id"){
+      inputs.forEach(input => {
+        const id = input.value
+        roles.push({
+          id: id,
+          permissions : []
+        })
+      })
+    }else{
+      inputs.forEach((input, index) => {
+        const inputChecked = input.checked;
+        if(inputChecked){
+          roles[index].permissions.push(dataName)
+        }
+      })
+    }
+  })
+    if(roles.length > 0) {
+      const formChangePermissions = document.querySelector("[form-change-permissions]");
+      const inputRoles = formChangePermissions.querySelector("input[name='roles']");
+      inputRoles.value = JSON.stringify(roles);
+      formChangePermissions.submit();
+    }
+  })
+}
+// Data default Table Permissions
+const dataRecords = document.querySelector("[data-records]");
+if(dataRecords) {
+  const records = JSON.parse(dataRecords.getAttribute("data-records"));
+  const tablePermissions = document.querySelector("[table-permissions]");
+  records.forEach((record, index) => {
+    const permissions = record.permissions
+    permissions.forEach(permission => {
+      const row = tablePermissions.querySelector(`tr[data-name="${permission}"]`);
+      const input = row.querySelectorAll(`input`)[index];
+      input.checked = true;
+    });
+  });
+}
+// End Data default Table Permissions
+// button-changeStatus-account
+const listBtnChangeStatusAccount = document.querySelectorAll("[button-change-status-account]")
+if(listBtnChangeStatusAccount.length > 0){
+  const formChangeStatusAccount = document.querySelector("[form-change-status-account]")
+  listBtnChangeStatusAccount.forEach(button => {
+    button.addEventListener("click", () => {
+      const status = button.getAttribute("data-status")
+      const id = button.getAttribute("data-id")
+      const path = formChangeStatusAccount.getAttribute("data-path")
+      const action = `${path}/${status}/${id}?_method=patch`
+      formChangeStatusAccount.action = action
+      formChangeStatusAccount.submit();
+    })
+  })
+}
+//end button-changeStatus-jobs-category
+//delete account
+const listBtnDeleteAccount = document.querySelectorAll("[button-delete-account]")
+if(listBtnDeleteAccount.length > 0){
+  const formDeleteAccount = document.querySelector("[form-delete-account]")
+  listBtnDeleteAccount.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id")
+      const path = formDeleteAccount.getAttribute("data-path")
+      const isConfirm = confirm("Bạn có chắc muốn xóa?")
+      const action = `${path}/${id}?_method=delete`
+      if(isConfirm){
+        formDeleteAccount.action = action
+        formDeleteAccount.submit()
+      }
+    })
+  })
+}
+//end delete account

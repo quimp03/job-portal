@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug
+block main
+  if (detailJobsCategory.title)
+    h1(class="mb-4") #{detailJobsCategory.title}
+  if (detailJobsCategory.thumbnail)
+    div(class="mb-4")
+      img(
+        src=detailJobsCategory.thumbnail
+        style="width: 200px"
+      )
+  if (detailJobsCategory.description)
+    div(class="mb-4") !{`Mô tả : ${detailJobsCategory.description}`}
+      
+  if (detailJobsCategory.position)
+    div(class="mb-4") #{`Vị trí danh mục: ${detailJobsCategory.position}`}
+  if (detailJobsCategory.status)
+    div(class="mb-4")
+      span Trạng thái : 
+      if (detailJobsCategory.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
