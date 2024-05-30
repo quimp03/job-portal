@@ -1,6 +1,8 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/alert
 block main
+  +alert-success(5000)
+  +alert-error(5000)
   if (jobs.companyName)
     h1(class="mb-4") #{jobs.companyName}
   if (jobs.thumbnail)
@@ -10,19 +12,30 @@ block main
         style="width: 200px"
       )
   if (jobs.title)
-    div(class="mb-4") #{`Vị trí công việc: ${jobs.title}`}
+    div(class="mb-4") <b>Vị trí tuyển dụng: </b> #{jobs.title}
   if (jobs.salary)
     div(class="mb-4") #{`Mức lương: ${jobs.salary}$`}
-  if (jobs.description)
-    div(class="mb-4") #{`Mô tả công việc: ${jobs.description}`}
-  if (jobs.location)
-    div(class="mb-4") #{`Vị trí công ty: ${jobs.location}`}
+  if (jobs.jobDescription)
+    div(class="mb-4") <b>Mô tả công việc: </b> !{jobs.jobDescription}
+  if (jobs.jobRequirement)
+    div(class="mb-4") <b>Yêu cầu công việc:</b> !{jobs.jobRequirement}
+  if (jobs.viTri)
+    div(class="mb-4") <b>Vị trí công việc:</b> !{jobs.viTri}
+  if (jobs.kiNang)
+    div(class="mb-4") <b>Yêu cầu kĩ năng:</b> !{jobs.kiNang}
   if (jobs.status)
     div(class="mb-4")
-      span Trạng thái : 
+      span <b>Trạng thái: </b>
       if (jobs.status === "active")
         span(class="badge badge-success") Hoạt động
       else
         span(class="badge badge-danger") Dừng hoạt động
   if (jobs.typejob)
     div(class="mb-4") #{`Loại công việc: ${jobs.typejob}`}
+  h2 Thông tin liên hệ
+  if (jobs.nameHR)
+    div(class="mb-4") #{`Tên người liên hệ: ${jobs.nameHR}`}
+  if (jobs.email)
+    div(class="mb-4") #{`Email: ${jobs.email}`}
+  if (jobs.phoneNumber)
+    div(class="mb-4") #{`Số điện thoại: ${jobs.phoneNumber}`}

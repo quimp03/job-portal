@@ -54,13 +54,16 @@ if(listButtonChangeStatus.length > 0) {
     button.addEventListener("click", () => {
       const id = button.getAttribute("data-id");
       const status = button.getAttribute("data-status");
+      if(status == "inactive"){
+        return
+      }
       const path = formChangeStatus.getAttribute("data-path");
-
       const action = `${path}/${status}/${id}?_method=PATCH`;
-
-      formChangeStatus.action = action;
-
-      formChangeStatus.submit();
+      const isConfirm = confirm("Bạn có chắc muốn duyệt bài viết này?")
+      if(isConfirm){
+        formChangeStatus.action = action;
+        formChangeStatus.submit();
+      }
     });
   });
 }
@@ -234,13 +237,15 @@ if(listBtnDeleteRole.length > 0){
 const buttonSubmitPermission = document.querySelector("[button-submit-permissions]")
 if(buttonSubmitPermission){
   buttonSubmitPermission.addEventListener("click",() => {
-    const roles = []
+  const roles = []
   const tablePermissions = document.querySelector("[table-permissions]")
   const rows = tablePermissions.querySelectorAll("tbody tr[data-name]")
-  rows.forEach((row, index) => {
+  rows.forEach((row, index) => {//lap qua tung hang
     const dataName = row.getAttribute("data-name")
     const inputs = row.querySelectorAll("input")
     if(dataName == "id"){
+      //nếu dataName == id thì lập qua từng pt của 2 cái input đó
+      // và roles sẽ thêm vào id và một pt mảng là permissions vào theo từng ô input lập qua
       inputs.forEach(input => {
         const id = input.value
         roles.push({
@@ -252,6 +257,9 @@ if(buttonSubmitPermission){
       inputs.forEach((input, index) => {
         const inputChecked = input.checked;
         if(inputChecked){
+          //đầu tiên duyệt qua index = 0 tai hàng 1 neu input.checked == true thi them vao roles[0] với
+          //permission->dataName
+          //tiep theo index = 1  tai hàng 1 nếu input.checked == true hi them vao roles[1] với permissions->dataName
           roles[index].permissions.push(dataName)
         }
       })
@@ -260,7 +268,7 @@ if(buttonSubmitPermission){
     if(roles.length > 0) {
       const formChangePermissions = document.querySelector("[form-change-permissions]");
       const inputRoles = formChangePermissions.querySelector("input[name='roles']");
-      inputRoles.value = JSON.stringify(roles);
+      inputRoles.value = JSON.stringify(roles);//chuyển thành chuỗi JSON
       formChangePermissions.submit();
     }
   })
@@ -314,3 +322,39 @@ if(listBtnDeleteAccount.length > 0){
   })
 }
 //end delete account
+//
+
+// button-changeStatus-positions-category
+const listBtnChangeStatusPositionCategory = document.querySelectorAll("[button-change-status-position-category]")
+if(listBtnChangeStatusPositionCategory.length > 0){
+  const formChangeStatusPositionsCategory = document.querySelector("[form-change-status-positionscategory]")
+  listBtnChangeStatusPositionCategory.forEach(button => {
+    button.addEventListener("click", () => {
+      const status = button.getAttribute("data-status")
+      const id = button.getAttribute("data-id")
+      const path = formChangeStatusPositionsCategory.getAttribute("data-path")
+      const action = `${path}/${status}/${id}?_method=patch`
+      formChangeStatusPositionsCategory.action = action
+      formChangeStatusPositionsCategory.submit();
+    })
+  })
+}
+//end button-changeStatus-jobs-category
+//delete-category
+const listBtnDeletePositionCategory = document.querySelectorAll("[button-delete-positon-category]")
+if(listBtnDeletePositionCategory.length > 0){
+  const formDeletePosition = document.querySelector("[form-delete-position-category ]")
+  listBtnDeletePositionCategory.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id")
+      const path = formDeletePosition.getAttribute("data-path")
+      const isConfirm = confirm("Bạn có chắc muốn xóa không?")
+      const action = `${path}/${id}?_method=DELETE`
+      if(isConfirm){
+        formDeletePosition.action = action
+        formDeletePosition.submit()
+      }
+    })
+  })
+}
+//end delete-category

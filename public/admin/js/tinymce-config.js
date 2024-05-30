@@ -10,7 +10,6 @@ tinymce.init({
       input.setAttribute('accept', 'image/*');
       input.onchange = function () {
         var file = this.files[0];
-  
         var reader = new FileReader();
         reader.onload = function () {
           var id = 'blobid' + (new Date()).getTime();

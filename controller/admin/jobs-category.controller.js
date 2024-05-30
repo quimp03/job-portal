@@ -1,14 +1,23 @@
 const JobsCategory = require("../../models/jobs-category.model")
+const Account = require("../../models/accounts.model")
 const systemConfig = require("../../config/system")
 const createTreehelper =require("../../helpers/createTree.helper")
-const createTreeHelper = require("../../helpers/createTree.helper")
 //[GET] admin/pages/products-category/index
 module.exports.index = async(req, res) => {
     const records = await JobsCategory.find({
         deleted: false
     })
+    for (const record of records) {
+        const createdBy = await Account.findOne({
+            _id: record.createdBy
+        })
+        if(createdBy){
+            record.createByFullName = createdBy.fullName
+        }
+    }
+
    res.render("admin/pages/jobs-category/index",{
-        pageTitle: "Danh mục sản phẩm",
+        pageTitle: "Danh mục công việc",
         records: records
    })
 }
@@ -20,18 +29,24 @@ module.exports.create = async(req, res) => {
    
     const newRecords = createTreehelper(records)
     res.render("admin/pages/jobs-category/create", {
-        pageTitle: "Thêm mới danh mục sản phẩm",
+        pageTitle: " Trang thêm mới danh mục công việc",
         records: newRecords
     })
 }
 //[POST] 
 module.exports.createPost = async(req, res) => {
+    //nếu biết được router thì ngta có thể dùng postman để test và có thể truy cập nên check lại 1 lần nữa
+    if(!res.locals.role.permissions.includes("jobs-category_create")){
+        res.send("Không có quyền truy cập")
+        return
+    }
     if(req.body.position){
         req.body.position = parseInt(req.body.position)
     }else{
         const countProduct = await JobsCategory.countDocuments()
        req.body.position = countProduct + 1
     }
+    req.body.createdBy = res.locals.user.id
     const record = new JobsCategory(req.body)
     await record.save()
     req.flash("success", `Thêm thành công`)
@@ -56,7 +71,9 @@ module.exports.deleteCategory = async(req, res) => {
     await JobsCategory.updateOne({
         _id: id
     }, {
-        deleted: true
+        deleted: true,
+        deletedBy: res.locals.user.id,
+        deletedAt: new Date()
     })
     const nameJobsCategory = await JobsCategory.findOne({
         _id: id
@@ -71,6 +88,7 @@ module.exports.detailCategory = async(req, res) => {
         deleted: false
     })
     res.render("admin/pages/jobs-category/detail", {
+        pageTitle: "Trang chi tiết danh mục công việc",
         detailJobsCategory: detailJobsCategory
     })
 }
@@ -82,6 +100,7 @@ module.exports.edit = async(req, res) => {
         deleted: false
     })
     res.render("admin/pages/jobs-category/edit", {
+        pageTitle: "Trang chỉnh sửa danh mục công việc",
         data: data
     })
 }

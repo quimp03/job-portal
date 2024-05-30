@@ -11,6 +11,8 @@ const roleSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      createdBy: String,
+      deletedBy: String,
       deletedAt: Date,
     },
     {

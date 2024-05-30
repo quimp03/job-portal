@@ -4,7 +4,7 @@ mongoose.plugin(slug)
 const jobsCategorySchema = new mongoose.Schema(
     {
       title: String,
-          parent_id: {
+        parent_id: {
         type: String,
         default: "",
       },
@@ -17,7 +17,9 @@ const jobsCategorySchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      createdBy: String,
       deletedAt: Date,
+      deletedBy: String,
     },
     {
       timestamps: true,

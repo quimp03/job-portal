@@ -15,6 +15,7 @@ module.exports.index = async(req, res) => {
         record.roleTitle = role.title;
       }
     res.render("admin/pages/accounts/index.pug", {
+        pageTitle: "Trang tài khoản",
         records: records
     })
 }
@@ -23,6 +24,7 @@ module.exports.createAccount = async(req, res) => {
         deleted: false
     })
     res.render("admin/pages/accounts/create.pug", {
+        pageTitle: "Trang tạo tài khoản",
         roles: roles
     })
 }
@@ -58,6 +60,7 @@ module.exports.detailAccount = async(req, res) => {
         });
         account.roleTitle = role.title;
     res.render("admin/pages/accounts/detail.pug", {
+        pageTitle: "Trang chi tiết tài khoản",
         account: account
     })
 }
@@ -89,12 +92,14 @@ module.exports.editAccount = async(req, res) => {
         deleted: false,
       });
     res.render("admin/pages/accounts/edit.pug", {
+        pageTitle: "Trang sửa tài khoản",
         dataAccount: dataAccount,
         roles: roles
     })
 }
 module.exports.editPatchAccount = async(req, res) => {
     const id = req.params.id
+    req.body.password = md5(req.body.password)
     await Account.updateOne({
         _id: id
     },

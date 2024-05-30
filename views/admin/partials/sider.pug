@@ -3,15 +3,23 @@
     ul 
       li
         a(href=`/${prefixAdmin}/dashboard`) Tổng quan
-      li
-        a(href=`/${prefixAdmin}/jobs`) Công việc
-      li
-        a(href=`/${prefixAdmin}/jobs-category`) Danh mục công việc
-      li
-        a(href=`/${prefixAdmin}/roles`) Nhóm quyền
+        //- includes dung de kiem tra trong doi tuong nao do co thuoc tinh gi do khong
+      if(role.permissions.includes("jobs_view"))
+        li
+          a(href=`/${prefixAdmin}/jobs`) Đơn tuyển dụng
+      if(role.permissions.includes("jobs-category_view"))
+        li
+          a(href=`/${prefixAdmin}/jobs-category`) Danh mục kĩ năng
+      if(role.permissions.includes("positions-category_view"))
+        li
+          a(href=`/${prefixAdmin}/positions-category`) Danh mục khu vực
+      if(role.permissions.includes("roles_view"))
+        li
+          a(href=`/${prefixAdmin}/roles`) Nhóm quyền
       li
         a(href=`/${prefixAdmin}/roles/permissions`) Phân quyền
       li
         a(href=`/${prefixAdmin}/blogs`) Blog
-      li
-        a(href=`/${prefixAdmin}/accounts`) Tài khoản
+      if(role.permissions.includes("accounts_view"))
+        li
+          a(href=`/${prefixAdmin}/accounts`) Tài khoản

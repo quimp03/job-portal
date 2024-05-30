@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug
+block main
+  if (detailPositionsCategory.title)
+    h1(class="mb-4") #{detailPositionsCategory.title}
+  if (detailPositionsCategory.thumbnail)
+    div(class="mb-4")
+      img(
+        src=detailPositionsCategory.thumbnail
+        style="width: 200px"
+      )
+  if (detailPositionsCategory.description)
+    div(class="mb-4") !{`Mô tả : ${detailPositionsCategory.description}`}
+      
+  if (detailPositionsCategory.position)
+    div(class="mb-4") #{`Vị trí danh mục: ${detailPositionsCategory.position}`}
+  if (detailPositionsCategory.status)
+    div(class="mb-4")
+      span Trạng thái : 
+      if (detailPositionsCategory.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động

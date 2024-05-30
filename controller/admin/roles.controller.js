@@ -1,4 +1,5 @@
 const Role = require("../../models/roles.model");
+const Account = require("../../models/accounts.model")
 const systemConfig = require("../../config/system")
 // [GET] /admin/roles/
 module.exports.index = async (req, res) => {
@@ -8,15 +9,26 @@ module.exports.index = async (req, res) => {
   };
   // End Find
   const records = await Role.find(find);
+  for (const record of records) {
+    const createdBy = await Account.findOne({
+        _id: record.createdBy
+    })
+    if(createdBy){
+        record.createByFullName = createdBy.fullName
+    }
+}
   res.render("admin/pages/roles/index", {
-    pageTitle: "Nhóm quyền",
+    pageTitle: " Trang nhóm quyền",
     records: records,
   });
 };
 module.exports.createRole = async(req, res) => {
-  res.render("admin/pages/roles/create.pug")
+  res.render("admin/pages/roles/create.pug", {
+    pageTitle: "Trang thêm mới nhóm quyền"
+  })
 }
 module.exports.createPost = async (req, res) => {
+  req.body.createdBy = res.locals.user.id
   const record = new Role(req.body);
   await record.save();
   req.flash("success", `Cập nhật danh mục thành công!`);
@@ -28,6 +40,7 @@ module.exports.detail = async(req, res) => {
     _id: id
   })
   res.render("admin/pages/roles/detail", {
+    pageTitle: "Trang chi tiết mới nhóm quyền",
     dataRole: dataRole
   })
 }
@@ -36,7 +49,9 @@ module.exports.deleteRole = async (req, res) => {
   await Role.updateOne({
     _id: id
   }, {
-    deleted: true
+    deleted: true,
+    deletedBy: res.locals.user.id,
+    deletedAt: new Date()
   })
   res.redirect("back")
 }
@@ -47,6 +62,7 @@ module.exports.edit = async (req, res) => {
     _id: id
   })
   res.render("admin/pages/roles/edit", {
+    pageTitle: "Trang sửa nhóm quyền",
     dataRole: dataRole
   })
 }
@@ -68,12 +84,12 @@ module.exports.permissions = async (req, res) => {
     deleted: false
   })
   res.render("admin/pages/roles/permissions",{
+    pageTitle: "Trang phân quyền",
     records: records
   })
 }
 module.exports.editPathPermission = async(req, res) => {
   const roles = JSON.parse(req.body.roles);
-  console.log(roles)
   for (const role of roles) {
     await Role.updateOne({
       _id: role.id,

@@ -1,14 +1,20 @@
 const mongoose = require("mongoose")
 const jobSchema = new mongoose.Schema({
-    companyName: String,
     title : String,
-    description: String,
+    companyName: String,
+    jobDescription: String,
+    jobRequirement: String,
     thumbnail : String,
-    status : String,
-    position : Number,
-    location: String,
     salary: Number,
-    typejob: String,
+    skill_category_id: String,
+    position_category_id: String,
+    email: String,
+    phoneNumber: String,
+    nameHR: String,
+    status : {
+        type: String,
+        default: "inactive"
+    },
     deleted : {
         type: Boolean,
         default: false

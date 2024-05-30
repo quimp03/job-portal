@@ -1,0 +1,95 @@
+extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
+block main
+    .postjob-content
+      h1.heading ĐĂNG TIN TUYỂN DỤNG
+      main
+        section.form-tuyendung
+          h2 Tuyển dụng nhân sự
+          form(
+            action=`/employer/applicant/create`
+            id="form-create-product"
+            method="POST"
+            enctype="multipart/form-data"
+            )
+            .form-group
+              label(for='ten-nhatuyendung') <b> Vị trí tuyển dụng(công việc) </b>
+              input#ten-nhatuyendung(type='text' name='title' required='')
+            .form-group
+              label(for='tieu-de-tin') <b>Tên công ty</b>
+              input#tieu-de-tin(type='text' name='companyName' required='')
+            .form-group
+              label(for='mo-ta-cong-viec') <b> Mô tả công việc </b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="jobDescription"
+                rows="5"
+                textarea-mce
+              )
+            .form-group
+              label(for='yeu-cau-cong-viec') <b> Yêu cầu công việc </b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="jobRequirement"
+                rows="5"
+                textarea-mce
+              )
+            div(
+              class="form-group"
+              upload-image
+            )
+              label(for="thumbnail") <b>Ảnh</b>
+              input(
+                type="file"
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+              )
+              img(
+                src=""
+                class="image-preview"
+                upload-image-preview
+              )
+            div(class="form-group")
+              label(for="price") <b>Lương</b>
+              input(
+                  type="number"
+                  class="form-control"
+                  id="salary"
+                  name="salary"
+                  value="0"
+                  min="0"
+              )
+            div(class="form-group")
+              label(for="skill_category_id") <b>Kĩ năng</b>
+              select(
+                name="skill_category_id"
+                id="skill_category_id"
+                class="form-control"
+              )
+                option(value="")
+                if(category)
+                  +select-tree(category)
+            div(class="form-group")
+              label(for="position_category_id") <b>Khu vực</b>
+              select(
+                name="position_category_id"
+                id="position_category_id"
+                class="form-control"
+              )
+                option(value="")
+                if(category)
+                  +select-tree(positonCategory)
+            .form-group
+              label(for='email-nhatuyendung') <b>Thông tin liên hệ:</b>
+            .form-group
+              input#email-nhatuyendung(type='email' name='email' placeholder='Email người liên hệ ...' required='')
+            .form-group
+              input#sodienthoai(type='sodienthoai' name='phoneNumber' placeholder='Số điện thoại liên hệ ...' required='')
+            .form-group
+              input#name(type='name' name='nameHR' placeholder='Tên người liên hệ ...' required='')
+            button(type='submit') Đăng bài
