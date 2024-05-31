@@ -55,6 +55,7 @@ block main
               th Mức lương
               if(role.permissions.includes("jobs_status"))
                 th Duyệt bài
+              th Nổi bật
               th Hành động
           tbody
           each item, index in jobs
@@ -92,6 +93,21 @@ block main
                         data-status="active"
                         ) Chưa duyệt
                 td
+                    if(item.featured == "1")
+                      a(href=`javascript:;`
+                        class="badge badge-success" 
+                       button-change-status-outstanding
+                        data-id=item.id
+                        data-status="0"
+                        ) Nổi bật
+                    else
+                      a(href=`javascript:;`
+                        class="badge badge-danger"
+                        button-change-status-outstanding
+                        data-id=item.id
+                        data-status="1"
+                        ) Không nổi bật
+                td
                   if(role.permissions.includes("jobs_delete"))
                     button(
                       class="btn btn-danger btn-sm ml-1"
@@ -114,4 +130,10 @@ block main
           method="POST"
           action=""
           data-path="/admin/jobs/delete"
+        )
+        form(
+          form-change-status-outstanding
+          method="POST"
+          action=""
+          data-path="/admin/jobs/change-status-outstanding"
         )

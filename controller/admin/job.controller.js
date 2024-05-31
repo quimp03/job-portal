@@ -149,3 +149,26 @@ module.exports.detailItem = async(req, res) => {
         return;
     }
 }
+module.exports.changeStatusOutstanding = async(req,res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+  try {
+    await Job.updateOne({
+        _id: id
+      }, {
+        featured: status
+      });
+      const nameCompany = await Job.findOne({
+          _id: id
+      })
+      if(status === "1"){
+        req.flash("success", `Cập nhật đơn tuyển dụng ${nameCompany.companyName} thành nổi bật thành công`)
+      }else{
+        req.flash("success", `Cập nhật đơn tuyển dụng ${nameCompany.companyName} thành không nổi bật thành công`)
+      }
+      res.redirect(`back`);
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}

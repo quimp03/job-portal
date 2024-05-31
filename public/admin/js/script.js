@@ -358,5 +358,19 @@ if(listBtnDeletePositionCategory.length > 0){
   })
 }
 //end delete-category
-
-
+//button-change-status-outstanding
+const listButtonChangeStatusOutstanding = document.querySelectorAll("[button-change-status-outstanding]");
+if(listButtonChangeStatusOutstanding.length > 0) {
+  const formChangeStatus = document.querySelector("[form-change-status-outstanding]");
+  listButtonChangeStatusOutstanding.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id");
+      const status = button.getAttribute("data-status");
+      const path = formChangeStatus.getAttribute("data-path");
+      const action = `${path}/${status}/${id}?_method=PATCH`;
+        formChangeStatus.action = action;
+        formChangeStatus.submit()
+    });
+  });
+}
+//end button-change-status-outstanding
