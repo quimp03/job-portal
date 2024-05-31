@@ -17,7 +17,7 @@ module.exports.index = async(req, res) => {
     }
 
    res.render("admin/pages/positions-category/index",{
-        pageTitle: "Danh mục công việc",
+        pageTitle: "Danh mục khu vực",
         records: records
    })
 }

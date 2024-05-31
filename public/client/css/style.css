@@ -358,4 +358,6 @@ footer{
     background-color: rgb(75, 102, 239);
     color: white;
 }
-/* end css job */
+ul, ul.sub-menu, ul.sub-menu li {
+    list-style-type: none;
+}

@@ -49,7 +49,7 @@ module.exports.index = async(req, res) => {
     }
     // end skill
     res.render("admin/pages/job/index",{
-        pageTitle:"Trang công việc",
+        pageTitle:"Trang tuyển dụng",
         jobs: jobs,
         filterStatus: filterStatus,
         keyword: req.query.keyword,

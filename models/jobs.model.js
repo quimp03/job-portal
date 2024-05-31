@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 const jobSchema = new mongoose.Schema({
     title : String,
     companyName: String,
@@ -11,6 +13,10 @@ const jobSchema = new mongoose.Schema({
     email: String,
     phoneNumber: String,
     nameHR: String,
+    featured:{
+        type: String,
+        default: "0"
+    },
     status : {
         type: String,
         default: "inactive"
@@ -18,7 +24,12 @@ const jobSchema = new mongoose.Schema({
     deleted : {
         type: Boolean,
         default: false
-    }
+    },
+    slug: {
+        type: String,
+        slug: "title",
+        unique: true
+      },
 })
 const Job = mongoose.model("Job", jobSchema, "jobs")
 module.exports = Job
