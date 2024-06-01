@@ -28,8 +28,12 @@ const jobSchema = new mongoose.Schema({
     slug: {
         type: String,
         slug: "title",
-        unique: true
-      },
-})
+        unique: true,
+    }
+},
+{
+  timestamps: true,
+}
+)
 const Job = mongoose.model("Job", jobSchema, "jobs")
 module.exports = Job

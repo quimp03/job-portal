@@ -7,6 +7,10 @@ module.exports.index = async(req, res) => {
         status: "active",
         featured: "1"
     }).limit(6)
+    const newjobs = await Job.find({
+        deleted: false,
+        status: "active",
+    }).limit(6).sort({createdAt: "desc"})
     //position
     for (const job of jobsFeatured) {
         const skill = await positionCategory.findOne({
@@ -18,8 +22,18 @@ module.exports.index = async(req, res) => {
         }
     }
     //end position
+    for (const job of newjobs) {
+        const skill = await positionCategory.findOne({
+            _id: job.position_category_id,
+            deleted: false
+        });
+        if (skill) {
+            job.viTri = skill.title
+        }
+    }
     res.render("client/pages/home/index",{
-        jobsFeatured: jobsFeatured
+        jobsFeatured: jobsFeatured,
+        newjobs: newjobs
     });
 }
 module.exports.detail = async(req, res) => {
@@ -37,7 +51,6 @@ module.exports.detail = async(req, res) => {
         }
     //end position
     //sklill
-    //position
     const  skill= await jobCategory.findOne({
         _id: detailJob.skill_category_id,
         deleted: false
@@ -45,7 +58,6 @@ module.exports.detail = async(req, res) => {
     if (skill) {
         detailJob.kiNang = skill.title
     }
-//end position
     //end skill
     res.render("client/pages/home/detail", {
         detailJob: detailJob
