@@ -1,10 +1,33 @@
 extends ../../layouts/default.pug
 block main
-  h1 Trang chủ
-    br
-    br
-    br
-    br
-    br
-    br
-    br
+    section#home.home
+      .search
+        form#search-box(action='POST')
+          input#search-text(type='text' placeholder=' Nhập công việc mà bạn muốn tìm...' required='')
+          button#search-btn
+            i.fa-solid.fa-magnifying-glass
+            |  Search
+      .content
+        h3
+          | FIND 
+          br
+          | NEW JOB
+        a.btn(href='jobs.html') Show More
+    section.company-container
+        h1.company-heading  Công ty tuyển dụng nổi bậc
+        .box-container
+           each item in jobsFeatured
+            .box
+              .company
+                img(src=item.thumbnail alt='')
+                div
+                  h3 #{item.companyName}
+              div
+                h4 #{item.title}
+              p.location
+                i.fa-solid.fa-location-dot
+                | #{item.viTri}
+                br
+                .foot
+                  a.btn(href=`/detail/${item.id}`)  View details 
+                  button.far.fa-heart(type='submit' name='save')

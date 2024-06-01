@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+block main
+    .view-company
+        h1.heading Company Details
+        .details
+            .info
+                img(src=detailJob.thumbnail alt='')
+                h3 #{detailJob.companyName}
+            .description
+            div(class="mb-4") <b>Mô tả công việc: </b> !{detailJob.jobDescription}
+            div(class="mb-4") <b>Yêu cầu công việc: </b> !{detailJob.jobRequirement}
+            div(class="mb-4") <i class="fa-solid fa-location-dot"></i> !{detailJob.viTri}
+            div(class="mb-4") <i class="fa-solid fa-chart-simple"></i> !{detailJob.kiNang}
+            div(class="mb-4") <i class="fa-solid fa-money-bill"></i> #{detailJob.salary}$ 
+            h3 Thông tin liên hệ
+            if (detailJob.nameHR)
+                div(class="mb-4") <i class="fa-solid fa-user-tie"></i> #{detailJob.nameHR}
+            if (detailJob.phoneNumber)
+                div(class="mb-4") <i class="fa-solid fa-phone"></i> #{detailJob.phoneNumber}
+            if (detailJob.email)
+                div(class="mb-4") <i class="fa-solid fa-envelope"></i> #{detailJob.email}
+            
+            
