@@ -582,6 +582,7 @@ ul, ul.sub-menu, ul.sub-menu li {
     padding: 2rem 2rem;
     box-shadow: 0 .5rem 1rem rgba(0,0,0);
     overflow-x: hidden;
+    margin-bottom: 10px;
 }
 .jobs-container .box-container .box .company{
     display: flex;

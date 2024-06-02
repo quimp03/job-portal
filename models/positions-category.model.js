@@ -9,7 +9,10 @@ const positionsCategorySchema = new mongoose.Schema(
         default: "",
       },
       description: String,
-      thumbnail: String,
+      thumbnail: {
+        type: String,
+        default: ""
+      },
       status: String,
       position: Number,
       slug: { type: String, slug: "title", unique: true },

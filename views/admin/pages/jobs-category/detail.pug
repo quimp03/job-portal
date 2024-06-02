@@ -2,12 +2,6 @@ extends ../../layouts/default.pug
 block main
   if (detailJobsCategory.title)
     h1(class="mb-4") #{detailJobsCategory.title}
-  if (detailJobsCategory.thumbnail)
-    div(class="mb-4")
-      img(
-        src=detailJobsCategory.thumbnail
-        style="width: 200px"
-      )
   if (detailJobsCategory.description)
     div(class="mb-4") !{`Mô tả : ${detailJobsCategory.description}`}
       

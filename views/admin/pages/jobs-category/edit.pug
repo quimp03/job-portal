@@ -46,24 +46,6 @@ block main
           rows="5"
           textarea-mce
         ) #{data.description}
-      div(
-        class="form-group"
-        upload-image
-      )
-        label(for="thumbnail") Ảnh
-        input(
-          type="file"
-          class="form-control-file"
-          id="thumbnail"
-          name="thumbnail"
-          accept="image/*"
-          upload-image-input
-        )
-        img(
-          src=data.thumbnail
-          class="image-preview"
-          upload-image-preview
-        )
       div(class="form-group")
         label(for="position") Vị trí
         input(

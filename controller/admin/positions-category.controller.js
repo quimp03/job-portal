@@ -35,6 +35,7 @@ module.exports.create = async(req, res) => {
 }
 //[POST] 
 module.exports.createPost = async(req, res) => {
+    console.log(req.body)
     //nếu biết được router thì ngta có thể dùng postman để test và có thể truy cập nên check lại 1 lần nữa
     if(!res.locals.role.permissions.includes("positions-category_create")){
         res.send("Không có quyền truy cập")

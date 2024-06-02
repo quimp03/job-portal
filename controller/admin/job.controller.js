@@ -81,6 +81,7 @@ module.exports.changeMulti = async (req, res) => {
     const type = req.body.type;
     let ids = req.body.ids;
     ids = ids.split(", ");
+    console.log(ids.length)
     switch (type) {
         case "active":
         case "inactive":
@@ -89,7 +90,24 @@ module.exports.changeMulti = async (req, res) => {
             }, {
             status: type
             });
-        req.flash("success", `Cập nhật trạng thái các công ty thành công`)
+            if(ids.length > 1){
+                req.flash("success", `Các đơn tuyển dụng đã được duyệt`)
+            }else{
+                req.flash("success", `Đơn tuyển dụng đã được duyệt`)
+            }
+        break;
+        case "1":
+        case "0":
+            await Job.updateMany({
+                _id: { $in: ids }
+                }, {
+                featured: type
+                });
+            if(ids.length > 1){
+                req.flash("success", `Cập nhật trạng thái các đơn tuyển dụng thành công`)
+            }else{
+                req.flash("success", `Cập nhật trạng thái đơn tuyển dụng thành công`)
+            }
         break;
         case "delete-all":
             await Job.updateMany({
@@ -97,7 +115,11 @@ module.exports.changeMulti = async (req, res) => {
             }, {
                 deleted: true
             });
-        req.flash("success", "Xóa các công ty thành công")
+            if(ids.length > 1){
+                req.flash("success", "Xóa công ty thành công")
+            }else{
+                req.flash("success", "Xóa các công ty thành công")
+            }
       default:
         break;
     }

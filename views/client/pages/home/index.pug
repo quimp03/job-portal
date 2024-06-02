@@ -30,7 +30,7 @@ block main
               div
                 span
                   i.fa-solid.fa-clock  #{moment(item.createdAt).format("DD/MM/YYYY")}
-                sapn
+                span
                   i.fa-solid.fa-money-bill  #{item.salary}$
                 br
                 .foot
@@ -51,7 +51,7 @@ block main
                 | #{item.viTri}
               div
                 span
-                  i.fa-solid.fa-clock  #{moment(item.createdAt).format("DD/MM/YYYY")}
+                  i.fa-solid.fa-clock   #{moment(item.createdAt).fromNow()}
                 sapn
                   i.fa-solid.fa-money-bill  #{item.salary}$
                 br

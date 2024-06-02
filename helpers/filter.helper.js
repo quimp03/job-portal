@@ -5,11 +5,11 @@ module.exports = (req) => {
             status: "",
             class: ""
         }, {
-            name: "Hoạt động",
+            name: "Đã duyệt",
             status: "active",
             class: ""
         },{
-            name: "Dừng hoạt động",
+            name: "Chưa duyệt",
             status: "inactive",
             class: ""
         }

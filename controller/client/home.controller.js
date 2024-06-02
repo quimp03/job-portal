@@ -22,6 +22,7 @@ module.exports.index = async(req, res) => {
         }
     }
     //end position
+    //skill
     for (const job of newjobs) {
         const skill = await positionCategory.findOne({
             _id: job.position_category_id,
@@ -31,6 +32,7 @@ module.exports.index = async(req, res) => {
             job.viTri = skill.title
         }
     }
+    //end skill
     res.render("client/pages/home/index",{
         jobsFeatured: jobsFeatured,
         newjobs: newjobs
