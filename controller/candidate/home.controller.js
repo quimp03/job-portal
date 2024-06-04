@@ -33,7 +33,7 @@ module.exports.index = async(req, res) => {
         }
     }
     //end skill
-    res.render("employer/pages/home/index", {
+    res.render("candidate/pages/home/index.pug", {
         jobsFeatured: jobsFeatured,
         newjobs: newjobs
     })

@@ -10,5 +10,5 @@ router.post("/create",
     upload.single('thumbnail'),
     uploadCloud.uploadSingle,
     controller.createPostApplicant)
-router.get("/myApplicant", controller.myApplicant)
+router.post("")
 module.exports = router

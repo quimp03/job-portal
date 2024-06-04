@@ -21,12 +21,21 @@ include ../mixins/sub-menu.pug
               ul.sub-menu
                 +sub-menu(layoutPositionCategory)
         li
-          a(href='company.html') Công ty
-        li
           a(href='blog.html') Blog Việc làm
         li
           a(href='employer.html') Nhà tuyển dụng
         li
-          a(href='login.html') Đăng nhập
+          a(href='') Đăng nhập 
+          ul.sub-menu
+            li
+              a(href='login.html') Ứng viên
+            li
+              a(href='loginEmployer.html') Nhà tuyển dụng
         li
-          a(href='register.html') Đăng kí
+          a(href='') Đăng ký
+          ul.sub-menu
+            li
+              a(href='/candidate/register') Ứng viên
+            li
+              a(href='registerEmployer.html') Nhà tuyển dụng
+

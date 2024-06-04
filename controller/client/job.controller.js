@@ -6,7 +6,14 @@ module.exports.index = async(req, res) => {
         deleted: false,
         status: "active"
     }
+    // Search
+    if(req.query.keyword) {
+        const regex = new RegExp(req.query.keyword, "i");
+        find.title = regex;
+    }
+    // End Search
     const records = await Applicant.find(find)
+   
      //position
      for (const job of records) {
         const skill = await positionCategory.findOne({
@@ -29,10 +36,13 @@ module.exports.index = async(req, res) => {
         }
     }
     //end skill
-    
+    if(records.length === 0){
+        req.flash("error", "Không tìm thấy công ty nào!")
+    }
     res.render("client/pages/job/index", {
         pageTitle: "Trang công việc",
-        records: records
+        records: records,
+        keyword: req.query.keyword
     })
 }
 module.exports.jobsCategory = async(req, res) => {
@@ -69,22 +79,22 @@ module.exports.jobsCategory = async(req, res) => {
     //viTri
     for (const job of records) {
         const skill = await jobCategory.findOne({
-            _id: job.position_category_id,
+            _id: job.skill_category_id,
             deleted: false
         });
         if (skill) {
-            job.viTri = skill.title
+            job.kiNang = skill.title
         }
     }
     //end viTri
     //kiNang
     for (const job of records) {
         const skill = await positionCategory.findOne({
-            _id: job.skill_category_id,
+            _id: job.position_category_id,
             deleted: false
         });
         if (skill) {
-            job.kiNang = skill.title
+            job.viTri = skill.title
         }
     }
     //end kiNang
@@ -108,7 +118,7 @@ module.exports.detailJob = async(req, res) => {
         }
     //end position
     //sklill
-    const  skill= await jobCategory.findOne({
+    const  skill = await jobCategory.findOne({
         _id: detailJob.skill_category_id,
         deleted: false
     });

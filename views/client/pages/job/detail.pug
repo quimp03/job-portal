@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug
 block main
     .view-company
-        h1.heading Company Details
+        h3.heading 
+            <i class="fa-solid fa-window-minimize"></i>
+            <i class="fa-solid fa-eye"></i>
+            <i class="fa-solid fa-window-minimize"></i>
         .details
             .info
                 img(src=detailJob.thumbnail alt='')
@@ -19,4 +22,12 @@ block main
                 div(class="mb-4") <i class="fa-solid fa-phone"></i> #{detailJob.phoneNumber}
             if (detailJob.email)
                 div(class="mb-4") <i class="fa-solid fa-envelope"></i> #{detailJob.email}
+            form(
+                action=`/cart/add/${detailJob.id}`
+                method="POST"
+            )
+                button(
+                type="submit"
+                class="btn btn-success btn-block apply"
+                ) Ứng tuyển
             

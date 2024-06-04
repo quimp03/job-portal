@@ -2,7 +2,6 @@ const dashboardRoute = require("./dashboard.route")
 const jobRoute = require("./job.route")
 const blogRoute = require("./blog.route")
 const jobsCategoryRoute = require("./jobs-category.route")
-
 const positionsCategoryRoute = require("./positions-category.route")
 const roleRoute = require("./roles.route");
 const accountRoute = require("./accounts.route")
