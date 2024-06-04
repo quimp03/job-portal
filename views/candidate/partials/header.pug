@@ -8,10 +8,12 @@
         li
           a(href="/user/dashboard") Trang chủ
         li
-          a(href='Profile.html') H&#x1ED3; S&#x1A1; C&aacute; Nh&acirc;n
+          a(href='Profile.html') Hồ sơ cá nhân
         li
-          a.accout(href='#')
-            i.fa-solid.fa-user
+          a(
+            class="inforUser"
+            href=`/${prefixAdmin}/my-account`
+          ) #{user.fullName}
           ul.sub-menu
             li
-              a(href='') &Dstrok;&abreve;ng xu&#x1EA5;t
+              a(href='/user/logout') Đăng xuất

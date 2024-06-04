@@ -38,3 +38,7 @@ module.exports.index = async(req, res) => {
         newjobs: newjobs
     })
 }
+module.exports.logout = async(req, res) => {
+    res.clearCookie("tokenUser")
+    res.redirect("/")
+}
