@@ -5,7 +5,7 @@ block main
   +alert-error(5000)
   .container.my-5
     .row.justify-content-center
-        form#form-register(action='/candidate/register' method="POST")
+        form#form-register(action='/employer/register' method="POST")
             h2(class="text-center") Đăng ký tài khoản
             div(class="form-group")
                 label(for="fullName") Họ và tên
@@ -14,6 +14,15 @@ block main
                 class="form-control"
                 id="fullName"
                 name="fullName"
+                required
+                )
+            div(class="form-group")
+                label(for="phone") Số điện thoại
+                input(
+                type="text"
+                class="form-control"
+                id="phone"
+                name="phone"
                 required
                 )
             div(class="form-group")

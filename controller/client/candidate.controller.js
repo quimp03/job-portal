@@ -20,15 +20,15 @@ module.exports.registerPost = async(req, res) => {
         password: md5(req.body.password),
         tokenUser: generateHelper.generateRandomString(30)
       };
-    
       const user = new Candidate(userInfo);
       await user.save();
       req.flash("success", "Đăng kí tài khoản thành công")
-      res.cookie("tokenUser", user.tokenUser);
       res.redirect("back");
 }
 module.exports.login = async(req, res) => {
-  res.render("client/pages/candidate/login.pug")
+  res.render("client/pages/candidate/login.pug", {
+    pageTitle: "Trang đăng nhập"
+  })
 }
 module.exports.loginPost = async(req, res) => {
   const email = req.body.email
@@ -53,5 +53,27 @@ module.exports.loginPost = async(req, res) => {
     return
   }
   res.cookie("tokenUser", user.tokenUser)
-  res.redirect("/user/dashboard")
+  res.redirect("/")
+}
+module.exports.logout = async(req, res) => {
+  res.clearCookie("tokenUser")
+  res.redirect("/")
+}
+module.exports.forgotPassword = async(req, res) => {
+  res.render("client/pages/candidate/forgot-password", {
+    pageTitle: "Trang quên mật khẩu"
+  })
+}
+module.exports.forgotPasswordPost = async(req, res) => {
+  const email = req.body.email
+  const user = await Candidate.findOne({
+    email: email,
+    deleted: false
+  })
+  if(!user){
+    req.flash("error", "Email không tồn tại")
+    res.redirect("back")
+    return
+  }
+  res.send('Ok')
 }

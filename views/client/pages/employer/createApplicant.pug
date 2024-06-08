@@ -5,7 +5,6 @@ block main
       h1.heading ĐĂNG TIN TUYỂN DỤNG
       main
         section.form-tuyendung
-          h2 Tuyển dụng nhân sự
           form(
             action=`/employer/applicant/create`
             id="form-create-product"
@@ -93,8 +92,3 @@ block main
             .form-group
               input#name(type='name' name='nameHR' placeholder='Tên người liên hệ ...' required='')
             button(type='submit') Đăng bài
-          form(
-            action=`/employer/myApplicant/create`
-            method="POST"
-            type="submit"
-          )

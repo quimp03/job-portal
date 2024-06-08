@@ -1,16 +1,14 @@
-extends ../../layouts/default.pug
+extends ../../layouts/default2.pug
 include ../../mixins/alert.pug
 block main
   +alert-error(5000)
+  .search
+    form#search-box(action='POST')
+      input#search-text(type='text' placeholder='Nhập công việc bạn muốn tìm...' name="keyword" value=keyword)
+      button#search-btn(type="submit")
+        i.fa-solid.fa-magnifying-glass
+        |  Search
   section.jobs-container
-    .search
-        form#search-box(action='POST')
-          input#search-text(type='text' placeholder='Nhập công việc bạn muốn tìm...' name="keyword" value=keyword)
-          button#search-btn(type="submit")
-            i.fa-solid.fa-magnifying-glass
-            |  Search
-    if(keyword == "")
-      h2 Không tìm thấy
     .box-container
       each item in records
         .box
@@ -25,14 +23,9 @@ block main
               i.fa-solid.fa-location-dot
               | #{item.viTri}
             div Salary: #{item.salary}$
+            br
             div Kĩ năng: #{item.kiNang}
+            br
             .flex-btn
               a.btn(href=`/job/detail/${item.id}`)  View details
               button.far.fa-heart(type='submit' name='save')
-    br
-    br
-    br
-    br
-    br
-    br
-      

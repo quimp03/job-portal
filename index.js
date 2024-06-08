@@ -3,9 +3,6 @@ const dotenv = require("dotenv");
 
 const routeClient = require("./routers/client/index.route");
 const routeAdmin = require("./routers/admin/index.route")
-const routeEmployer = require("./routers/employer/index.route")
-const routeCandidate = require("./routers/candidate/index.route")
-
 
 const systemConfig = require("./config/system.js")
 const database = require('./config/database.js')
@@ -38,8 +35,6 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 const port = process.env.PORT
 routeClient(app)
 routeAdmin(app)
-routeEmployer(app)
-routeCandidate(app)
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
 });

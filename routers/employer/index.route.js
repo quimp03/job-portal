@@ -1,8 +1,12 @@
-const dashboardRoutes = require("./dashboard.route");
-const applicantRoute = require("./applicant.route")
-const myApplicantRoute = require("./myApplicant.route")
+
+const employerRoute = require("./employer.route")
+const categoryMiddleware = require("../../middlewares/client/category.middleware");
+const userMiddleware = require("../../middlewares/candidate/candidate.middleware");
+const employerMiddleware = require("../../middlewares/employer/employer.middleware")
 module.exports = (app) => {
-  app.use("/employer/dashboard", dashboardRoutes);
-  app.use("/employer/applicant", applicantRoute)
-  app.use("/employer/myApplicant",myApplicantRoute)
+  app.use(categoryMiddleware.category);
+  app.use(categoryMiddleware.positionCategory)
+  app.use(userMiddleware.infoUser)
+  app.use(employerMiddleware.infoEmployer)
+  app.use("/employer", employerRoute)
 }

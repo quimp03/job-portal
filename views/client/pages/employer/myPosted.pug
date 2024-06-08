@@ -1,0 +1,44 @@
+extends ../../layouts/default2.pug
+block main
+  h1(class="mb-4") DANH SÁCH BÀI ĐĂNG
+  .card.mb-3
+    .card-header Danh sách
+    .card-body
+      .row
+        .col-8
+      table(
+        class="table table-hover table-sm"
+      )
+        thead
+          tr
+            th STT
+            th Avatar
+            th Vị trí tuyển dụng
+            th Vị trí
+            th Kĩ Năng
+            th Lương
+            th Trạng thái
+        tbody
+          each item, index in records
+              tr 
+                td #{index+1}
+                td
+                  img(
+                    src=item.thumbnail
+                    alt=item.fullName
+                    width="100px"
+                    height="auto"
+                  )
+                td #{item.title}
+                td #{item.viTri}
+                td #{item.kiNang}
+                td #{item.salary}
+                td
+                  if (item.status === "active")
+                    div(
+                      class="badge badge-success"
+                    ) Đã duyệt
+                  else
+                    a(
+                      class="badge badge-danger"
+                    ) Chưa duyệt

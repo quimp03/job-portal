@@ -12,6 +12,7 @@ const jobSchema = new mongoose.Schema({
     position_category_id: String,
     email: String,
     phoneNumber: String,
+    parent_id: String,
     nameHR: String,
     featured:{
         type: String,

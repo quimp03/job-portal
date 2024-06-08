@@ -1,4 +1,4 @@
-extends ../../layouts/default.pug
+extends ../../layouts/default2.pug
 include ../../mixins/alert.pug
 block main
   +alert-success(5000)
@@ -25,8 +25,11 @@ block main
                 name="password"
                 required
                 )
+            a(href="/candidate/password/forgot") Quên mật khẩu?
             div(class="form-group")
                 button(
                 type="submit"
-                class="btn btn-primary btn-block"
-                ) Đăng ký
+                class="btn btn-primary btn-block register"
+                ) Đăng nhập
+        
+

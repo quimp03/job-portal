@@ -848,9 +848,16 @@ ul, ul.sub-menu, ul.sub-menu li {
 .form-input::placeholder{
     color: rgb(14, 13, 13);
 }
+.pwform-submit{
+    font-size: 15px;
+    background-color: white;
+    border:none;
+}
+.pwform-submit:hover{
+    color: #00B14F;
+}
 .form-submit{
     background: transparent;
-    border: 1px solid black;
     color: black;
     width: 100%;
     text-transform: uppercase;
@@ -858,3 +865,25 @@ ul, ul.sub-menu, ul.sub-menu li {
     transition: 0.25s ease-in-out;
     margin-top: 30px;
 }
+/* myPosted*/
+.card{
+    width: 800px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 50px;
+}
+.mb-3{
+    margin-left: 240px;
+}
+.mb-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #0E9249;
+}
+.card-header{
+    background-color: #D4EDDA;
+}
+

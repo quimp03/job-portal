@@ -22,20 +22,46 @@ include ../mixins/sub-menu.pug
                 +sub-menu(layoutPositionCategory)
         li
           a(href='blog.html') Blog Việc làm
-        li
-          a(href='employer.html') Nhà tuyển dụng
-        li
-          a(href='') Đăng nhập 
-          ul.sub-menu
-            li
-              a(href='/candidate/login') Ứng viên
-            li
-              a(href='loginEmployer.html') Nhà tuyển dụng
-        li
-          a(href='') Đăng ký
-          ul.sub-menu
-            li
-              a(href='/candidate/register') Ứng viên
-            li
-              a(href='registerEmployer.html') Nhà tuyển dụng
+        if(user)
+          li
+            a(href='Profile.html') Hồ sơ cá nhân
+        if(employer)
+          li
+            a(href='/employer/applicant/create') Đăng tin tuyển dụng
+        if(user)
+          li
+            a(
+              class="inforUser"
+              href=`/candidate/my-account`
+            ) #{user.fullName}
+            ul.sub-menu
+              li
+                a(href='/candidate/logout') Đăng xuất
+        else if(employer)
+          li
+            a(
+              class="inforUser"
+              href=`/candidate/my-account`
+            ) #{employer.fullName}
+            ul.sub-menu
+              li
+                a(href='/employer/logout') Đăng xuất
+              li
+                a(href='/employer/myPosted') Bài đăng của tôi
+        else
+          li
+            a(href='') Đăng nhập 
+            ul.sub-menu
+              li
+                a(href='/candidate/login') Ứng viên
+              li
+                a(href='/employer/login') Nhà tuyển dụng
+          li
+            a(href='') Đăng ký
+            ul.sub-menu
+              li
+                a(href='/candidate/register') Ứng viên
+              li
+                a(href='/employer/register') Nhà tuyển dụng
+
 
