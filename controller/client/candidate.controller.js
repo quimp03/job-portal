@@ -2,6 +2,7 @@ const Candidate = require("../../models/candidate.model")
 const md5 = require("md5");
 const generateHelper = require("../../helpers/generate.helper");
 const ForgotPassword = require("../../models/forgot-password.model")
+const sendEmailHelper = require("../../helpers/sendEmail.helper")
 module.exports.register = async(req, res) => {
     res.render("client/pages/candidate/register.pug")
 }
@@ -76,14 +77,18 @@ module.exports.forgotPasswordPost = async(req, res) => {
     res.redirect("back")
     return
   }
+  const otp = generateHelper.generateRandomNumber(6)
   const objectForgotPassword = {
     email: email,
-    otp: generateHelper.generateRandomNumber(6),
+    otp: otp,
     expireAt: Date.now() + 3*60*1000 
     // expireAt: ton tai trong timeset
   }
   const forgotPassword = new ForgotPassword(objectForgotPassword)
   await forgotPassword.save()
+  const subject = "Lấy lại mật khẩu"
+  const text = `Mã OTP xác thực tài khoản của bạn là : ${otp}. Vui lòng không cung cấp này với bất kì ai.`
+  sendEmailHelper.sendEmail(email,subject, text)
   res.redirect(`/candidate/password/otp?email=${email}`)
 }
 module.exports.otpPassword = async(req, res) => {
