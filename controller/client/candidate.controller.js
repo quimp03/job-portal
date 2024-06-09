@@ -2,7 +2,9 @@ const Candidate = require("../../models/candidate.model")
 const md5 = require("md5");
 const generateHelper = require("../../helpers/generate.helper");
 const ForgotPassword = require("../../models/forgot-password.model")
-const sendEmailHelper = require("../../helpers/sendEmail.helper")
+const sendEmailHelper = require("../../helpers/sendEmail.helper");
+const router = require("../../routers/client/candidate.route");
+const Profile = require("../../models/profile.model")
 module.exports.register = async(req, res) => {
     res.render("client/pages/candidate/register.pug")
 }
@@ -54,11 +56,18 @@ module.exports.loginPost = async(req, res) => {
     res.redirect("back")
     return
   }
+  const findProfile = await Profile.findOne({
+    parent_id: user.id
+  })
+  if(findProfile){
+    res.cookie("tokenProfile", findProfile.tokenProfile)
+  }
   res.cookie("tokenUser", user.tokenUser)
   res.redirect("/")
 }
 module.exports.logout = async(req, res) => {
   res.clearCookie("tokenUser")
+  res.clearCookie("tokenProfile")
   res.redirect("/")
 }
 module.exports.forgotPassword = async(req, res) => {
@@ -137,4 +146,34 @@ module.exports.resetPasswordPost = async(req, res) => {
   })
   req.flash("success", "Đổi mật khẩu thành công!")
   res.redirect("/candidate/login")
+}
+module.exports.profileCandidate = async(req,res) => {
+  res.render("client/pages/candidate/profile", {
+    pageTitle: "Tạo hồ sơ cá nhân"
+  })
+}
+module.exports.profilePost = async(req, res) => {
+  const tokenUser = req.cookies.tokenUser
+  const user = await Candidate.findOne({
+    tokenUser: tokenUser
+  })
+  const tokenProfile =  generateHelper.generateRandomString(30)
+  const profile = new Profile(req.body)
+  profile.parent_id = user.id
+  profile.tokenProfile = tokenProfile
+  await profile.save()
+  res.cookie("tokenProfile", profile.tokenProfile)
+  res.redirect("/")
+}
+module.exports.detailProfile = async(req, res) => {
+  const user = req.cookies.tokenProfile
+  const inforUser = await Profile.findOne({
+    tokenProfile: user,
+    status: "active",
+    deleted: false
+  })
+  res.render("client/pages/candidate/detail-profile", {
+    pageTitle: "Trang chi tiết hồ sơ",
+    inforUser: inforUser
+  })
 }

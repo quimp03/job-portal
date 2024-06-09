@@ -23,8 +23,12 @@ include ../mixins/sub-menu.pug
         li
           a(href='blog.html') Blog Việc làm
         if(user)
-          li
-            a(href='Profile.html') Hồ sơ cá nhân
+          if(profile)
+            li
+              a(href='candidate/detail-profile') Hồ sơ cá nhân
+          else
+            li
+              a(href='candidate/profile') Hồ sơ cá nhân
         if(employer)
           li
             a(href='/employer/applicant/create') Đăng tin tuyển dụng

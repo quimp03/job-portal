@@ -1,4 +1,4 @@
-extends ../../layouts/default2.pug
+extends ../../layouts/default3.pug
 block main
   h1(class="mb-4") DANH SÁCH BÀI ĐĂNG
   .card.mb-3
@@ -18,6 +18,7 @@ block main
             th Kĩ Năng
             th Lương
             th Trạng thái
+            th Hành động
         tbody
           each item, index in records
               tr 
@@ -42,3 +43,15 @@ block main
                     a(
                       class="badge badge-danger"
                     ) Chưa duyệt
+                td
+                  button(
+                    class="btn1 btn-danger"
+                    data-id=item.id
+                    button-delete-myPost
+                  ) Xóa
+    form(
+        form-delete-myPost
+        method="POST"
+        action=""
+        data-path="/employer/myPosted/delete"
+      ) 

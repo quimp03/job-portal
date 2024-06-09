@@ -121,3 +121,19 @@ module.exports.myPosted = async(req, res) => {
     records: records
   })
 }
+module.exports.myPostedDelete = async(req, res) => {
+    const id = req.params.id
+    const namePosted = await Apllicant.findOne({
+        _id: id
+    })
+    try {
+        await Apllicant.deleteOne({
+            _id: id
+        })
+        req.flash("success", `Xóa tài khoản ${namePosted.fullName} thành công`)
+        res.redirect(`back`)
+    } catch (error) {
+        req.flash("error",`Xóa tài khoản ${namePosted.fullName} thất bại`)
+        console.log(error)
+    }
+}

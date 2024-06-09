@@ -1,5 +1,5 @@
 const Candidate = require("../../models/candidate.model");
-
+const Profile = require("../../models/profile.model")
 module.exports.infoUser = async (req, res, next) => {
   if(req.cookies.tokenUser) {
     const user = await Candidate.findOne({
@@ -13,5 +13,18 @@ module.exports.infoUser = async (req, res, next) => {
     }
   }
 
+  next();
+}
+module.exports.profile = async (req, res, next) => {
+  if(req.cookies.tokenProfile) {
+    const profile = await Profile.findOne({
+      tokenProfile: req.cookies.tokenProfile,
+      deleted: false,
+      status: "active"
+    })
+    if(profile) {
+      res.locals.profile = profile;
+    }
+  }
   next();
 }

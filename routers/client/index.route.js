@@ -9,6 +9,7 @@ module.exports = (app) => {
   app.use(categoryMiddleware.category);
   app.use(categoryMiddleware.positionCategory)
   app.use(userMiddleware.infoUser)
+  app.use(userMiddleware.profile)
   app.use(employerMiddleware.infoEmployer)
   app.use("/", homeRoutes);
   app.use("/job", jobRoutes)

@@ -1,0 +1,45 @@
+extends ../../layouts/default3.pug
+include ../../mixins/alert.pug
+block main
+    .profile
+      h1 HỒ SƠ CÁ NHÂN
+      .separator
+        span.star -------------------------&starf;-------------------------
+      section.personal-info
+        h2 #{inforUser.fullName}
+      section.details
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-circle-info
+              |  TH&Ocirc;NG TIN:
+          p Giới tính: #{inforUser.sex}
+          p Ngày sinh: #{moment(inforUser.date).format("DD/MM/YYYY")}
+          p Email: #{inforUser.email}
+          p Điện thoại: #{inforUser.phone}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-briefcase
+              |  KĨ NĂNG
+          | !{inforUser.kiNang}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-graduation-cap
+              |  HỌC VẤN
+          | !{inforUser.hocVan}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-pen-fancy
+              |  KINH NGHIỆM
+          | !{inforUser.kinhNghiem}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-chart-line
+              |  MỤC TIÊU
+          | !{inforUser.mucTieu}
+      from(action='POST')
+        button(type='submit') &Dstrok;i&#x1EC1;u ch&#x1EC9;nh h&#x1ED3; s&#x1A1; c&aacute; nh&acirc;n

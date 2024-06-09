@@ -1,0 +1,61 @@
+extends ../../layouts/default3.pug
+include ../../mixins/alert.pug
+block main
+    h1 TẠO HỒ SƠ CÁ NHÂN
+    .content
+        form(action=`/candidate/profile` method="POST")
+            h4 Thông tin cá nhân
+            .input-group
+            label(for='fullName') H&#x1ECD; V&agrave; T&ecirc;n:
+            input#hoten(type='text' name='fullName' required='')
+            .input-group
+            label(for='date') Ng&agrave;y Sinh:
+            input#ngaysinh(type='date' name='date' required='')
+            .input-group
+            label(for='sex') Gi&#x1EDB;i T&iacute;nh:
+            select#gioitinh(name='sex' required='')
+                option(value='nam') Nam
+                option(value='nu') N&#x1EEF;
+            .input-group
+            label(for='email') E-mail:
+            input#email(type='email' name='email' required='')
+            .input-group
+            label(for='phone') S&#x1ED1; &Dstrok;i&#x1EC7;n Tho&#x1EA1;i:
+            input#sdt(type='tel' name='phone' required='')
+            .form-group
+              label(for='hocVan') <b>Kĩ năng</b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="kiNang"
+                rows="5"
+                textarea-mce
+            )
+            .form-group
+              label(for='hocVan') <b>Học vấn</b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="hocVan"
+                rows="5"
+                textarea-mce
+            )
+            .form-group
+              label(for='kinhNghiem') <b>Kinh nghệm</b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="kinhNghiem"
+                rows="5"
+                textarea-mce
+            )
+            .form-group
+              label(for='mụcTiêu') <b>Mục tiêu</b>
+              textarea(
+                class="form-control"
+                id="desc"
+                name="mucTieu"
+                rows="5"
+                textarea-mce
+            )
+            button(type='submit') Tạo hồ sơ

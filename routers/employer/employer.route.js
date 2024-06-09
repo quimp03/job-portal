@@ -19,4 +19,5 @@ router.post("/applicant/create",
 )
 router.get("/logout", controller.logout)
 router.get("/myPosted",controller.myPosted)
+router.delete("/myPosted/delete/:id", controller.myPostedDelete)
 module.exports = router;
