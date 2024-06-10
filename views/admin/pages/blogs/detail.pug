@@ -1,0 +1,14 @@
+extends  ../../layouts/default.pug
+block main
+    h1 Trang chi tiết blog
+    if (blog.title)
+        h4(class="mb-4 title-detail") #{blog.title}
+    if (blog.content)
+        div(class="mb-4") !{`${blog.content}`}
+    if (blog.status)
+     div(class="mb-4")
+        span <b>Trạng thái: </b>
+        if (blog.status === "active")
+            span(class="badge badge-success") Hoạt động
+        else
+            span(class="badge badge-danger") Dừng hoạt động

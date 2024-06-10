@@ -1,7 +1,12 @@
 extends ../../layouts/default3.pug
 include ../../mixins/alert.pug
 block main
+    +alert-success(3000)
     .profile
+      a(
+        href=`/candidate/edit-profile/${inforUser.id}`
+      )
+        <i class="fa-regular fa-pen-to-square"></i>
       h1 HỒ SƠ CÁ NHÂN
       .separator
         span.star -------------------------&starf;-------------------------
@@ -12,7 +17,7 @@ block main
           a
             h3
               i.fa-solid.fa-circle-info
-              |  TH&Ocirc;NG TIN:
+              |  THÔNG TIN
           p Giới tính: #{inforUser.sex}
           p Ngày sinh: #{moment(inforUser.date).format("DD/MM/YYYY")}
           p Email: #{inforUser.email}
@@ -41,5 +46,4 @@ block main
               i.fa-solid.fa-chart-line
               |  MỤC TIÊU
           | !{inforUser.mucTieu}
-      from(action='POST')
-        button(type='submit') &Dstrok;i&#x1EC1;u ch&#x1EC9;nh h&#x1ED3; s&#x1A1; c&aacute; nh&acirc;n
+      

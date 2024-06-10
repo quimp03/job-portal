@@ -15,4 +15,6 @@ router.post("/password/reset", controller.resetPasswordPost)
 router.get("/profile", controller.profileCandidate)
 router.post("/profile", controller.profilePost)
 router.get("/detail-profile", controller.detailProfile)
+router.get("/edit-profile/:id", controller.editProfile)
+router.patch("/update-profile/:id", controller.updateProfile)
 module.exports = router;

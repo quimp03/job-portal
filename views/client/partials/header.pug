@@ -21,7 +21,7 @@ include ../mixins/sub-menu.pug
               ul.sub-menu
                 +sub-menu(layoutPositionCategory)
         li
-          a(href='blog.html') Blog Việc làm
+          a(href='/blog') Blog Việc làm
         if(user)
           if(profile)
             li
@@ -52,6 +52,8 @@ include ../mixins/sub-menu.pug
                 a(href='/employer/logout') Đăng xuất
               li
                 a(href='/employer/myPosted') Bài đăng của tôi
+              li
+                a(href='/employer/manage-posted') Quản lí đơn tuyển dụng
         else
           li
             a(href='') Đăng nhập 

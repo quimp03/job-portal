@@ -137,3 +137,8 @@ module.exports.myPostedDelete = async(req, res) => {
         console.log(error)
     }
 }
+module.exports.managePosted = async(req, res) => {
+  res.render("client/pages/employer/manage-posted", {
+    pageTitle: "Trang quản lí hồ sơ cá nhân"
+  })
+}

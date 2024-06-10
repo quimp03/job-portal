@@ -13,7 +13,7 @@ module.exports = (app) => {
     const PATH_ADMIN = `/${systemConfig.prefixAdmin}`
     app.use(PATH_ADMIN + "/dashboard",authMiddleware.requireAuth, dashboardRoute)
     app.use(PATH_ADMIN + "/jobs",authMiddleware.requireAuth, jobRoute)
-    app.use(PATH_ADMIN + "/blogs",authMiddleware.requireAuth, blogRoute)
+    app.use(PATH_ADMIN + "/blog",authMiddleware.requireAuth, blogRoute)
     app.use(PATH_ADMIN + "/jobs-category",authMiddleware.requireAuth,jobsCategoryRoute)
     app.use(PATH_ADMIN + "/positions-category",authMiddleware.requireAuth,positionsCategoryRoute)
     app.use(PATH_ADMIN + "/roles",authMiddleware.requireAuth, roleRoute)

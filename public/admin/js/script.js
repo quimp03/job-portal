@@ -374,3 +374,42 @@ if(listButtonChangeStatusOutstanding.length > 0) {
   });
 }
 //end button-change-status-outstanding
+
+//button-change-status-blog
+const listButtonChangeStatusBlog = document.querySelectorAll("[button-change-status-blog]");
+if(listButtonChangeStatusBlog.length > 0) {
+  const formChangeStatusBlog = document.querySelector("[form-change-status-blog]");
+  listButtonChangeStatusBlog.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id");
+      const status = button.getAttribute("data-status");
+      const path = formChangeStatusBlog.getAttribute("data-path");
+      const action = `${path}/${status}/${id}?_method=PATCH`;
+      const isConfirm = confirm("Bạn có chắc muốn duyệt bài viết này?")
+      if(isConfirm){
+        formChangeStatusBlog.action = action;
+        formChangeStatusBlog.submit();
+      }
+    });
+  });
+}
+//end button-change-status-blog
+//Delete Item-blog
+const listButtonDeleteBlog = document.querySelectorAll("[button-delete-blog]")
+if(listButtonDeleteBlog.length > 0){
+  console.log(listButtonDeleteBlog)
+  listButtonDeleteBlog.forEach(button => {
+    button.addEventListener("click", () => {
+      const formDeleteItemBlog = document.querySelector("[form-delete-blog]")
+      const path = formDeleteItemBlog.getAttribute("data-path")
+      const id = button.getAttribute("data-id")
+      const isConfirm = confirm("Bạn có chắc muốn xóa không?")
+      const action = `${path}/${id}?_method=DELETE`
+      if(isConfirm){
+        formDeleteItemBlog.action = action
+        formDeleteItemBlog.submit()
+      }
+    })
+  })
+}
+//End delete blog

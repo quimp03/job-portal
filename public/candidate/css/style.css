@@ -59,6 +59,7 @@ nav{
     padding-bottom: 0px;
     margin-top: 4px;
     display: none;
+    z-index: 9999999;
 }
 #main-menu li:hover>ul.sub-menu{
     display: block;
@@ -868,13 +869,13 @@ ul, ul.sub-menu, ul.sub-menu li {
 }
 /* myPosted*/
 .card{
-    width: 800px;
+    width: 900px;
     padding: 10px;
-    margin-left: 10px;
-    margin-top: 50px;
+    margin-left: 0px;
+    margin-top: 60px;
 }
 .mb-3{
-    margin-left: 240px;
+    margin-left: 190px;
 }
 .mb-4{
     display: flex;
@@ -1104,4 +1105,15 @@ button {
 }
 .fa-chart-line{
     color: #017134;
+}
+.fa-pen-to-square{
+   float: right;
+   font-size: 25px;
+   margin: 5px 5px 0px 0px;
+}
+.profile a{
+    color: black;
+}
+.profile a:hover{
+    color: #00B14F;
 }

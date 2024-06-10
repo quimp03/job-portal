@@ -87,3 +87,8 @@
     display: none;
   }
 
+.title-detail{
+  color: green;
+  display: flex;
+  justify-content: center;
+}

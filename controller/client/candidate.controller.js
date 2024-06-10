@@ -177,3 +177,25 @@ module.exports.detailProfile = async(req, res) => {
     inforUser: inforUser
   })
 }
+module.exports.editProfile = async(req, res) =>{
+  const id = req.params.id
+  const profile = await Profile.findOne({
+    _id: id,
+    deleted: false,
+    status: "active"
+  })
+  res.render("client/pages/candidate/edit-profile", {
+    pageTitle: "Trang chỉnh sửa",
+    profile: profile
+  })
+}
+module.exports.updateProfile = async(req, res) => {
+  const id = req.params.id
+  await Profile.updateOne({
+    _id: id,
+  },
+    req.body
+)
+  req.flash("success", "Cập nhật thành công")
+  res.redirect("/candidate/detail-profile")
+}
