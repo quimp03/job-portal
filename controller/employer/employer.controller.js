@@ -4,8 +4,9 @@ const Employer = require("../../models/employer.model")
 const JobsCategory = require("../../models/jobs-category.model");
 const PositionCategory = require("../../models/positions-category.model")
 const Apllicant = require("../../models/jobs.model")
+const Profile = require("../../models/cv.model")
+const Candidate = require("../../models/candidate.model")
 const createTreeHelper = require("../../helpers/createTree.helper");
-
 module.exports.register = async(req, res) => {
     res.render("client/pages/employer/register")
 }
@@ -141,4 +142,18 @@ module.exports.managePosted = async(req, res) => {
   res.render("client/pages/employer/manage-posted", {
     pageTitle: "Trang quản lí hồ sơ cá nhân"
   })
+}
+module.exports.appliedPost = async(req, res) => {
+  const tokenUser = req.cookies.tokenUser
+  const candidate = await Candidate.findOne({
+    tokenUser: tokenUser,
+    deleted: false
+  })
+  const profile = await Profile.findOne({
+    parent_id: candidate.id
+  })
+  res.render("client/pages/employer/manage-posted", {
+    profile: profile
+  })
+  res.redirect("back")
 }

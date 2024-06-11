@@ -44,3 +44,12 @@ if(uploadImage){
         }
     })
 }
+
+// none-apply
+const buttonApply = document.querySelector("[none-apply]");
+if (buttonApply) {
+  buttonApply.addEventListener("click", (event) => {
+    alert("Vui lòng tạo hồ sơ cá nhân");
+  });
+}
+// end none apply

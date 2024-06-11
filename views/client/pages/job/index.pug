@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 block main
   +alert-error(5000)
   .search
-    form#search-box(action='POST')
+    form#search-box(action='')
       input#search-text(type='text' placeholder='Nhập công việc bạn muốn tìm...' name="keyword" value=keyword)
       button#search-btn(type="submit")
         i.fa-solid.fa-magnifying-glass

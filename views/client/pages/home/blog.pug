@@ -1,0 +1,28 @@
+extends ../../layouts/defaultBlog.pug
+block main
+    section#home.home
+    section#blog
+      .blog-heading
+        strong  Recent Blog
+        h3  Our Blog
+          // Container
+        .blog-box-container
+          each blog in blogs
+            // *box*
+            .blog-box
+              // img
+              .blog-box-img
+                img(src=blog.thumbnail alt='blog img')
+                a.blog-img-link(href=`/blog/detail/${blog.id}`)
+                  i.fa-solid.fa-arrow-up-right-from-square
+              // text
+              .blog-box-text
+                strong IT
+                a(href='blog1.html') #{blog.title}
+                .blog-author
+                  .blog-author-img
+                    img(src=blog.thumbnail alt='')
+                    
+
+
+        

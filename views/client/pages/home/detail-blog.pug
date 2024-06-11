@@ -1,0 +1,6 @@
+extends ../../layouts/defaultBlog.pug
+block main
+    h2.header-title #{blog.title}
+    .content
+        p.post-text
+        | !{blog.content}

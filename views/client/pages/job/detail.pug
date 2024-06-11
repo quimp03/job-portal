@@ -22,12 +22,19 @@ block main
                 div(class="mb-4") <i class="fa-solid fa-phone"></i> #{detailJob.phoneNumber}
             if (detailJob.email)
                 div(class="mb-4") <i class="fa-solid fa-envelope"></i> #{detailJob.email}
-            form(
-                action=`/cart/add/${detailJob.id}`
-                method="POST"
-            )
-                button(
-                type="submit"
-                class="btn btn-success btn-block apply"
-                ) Ứng tuyển
-            
+            if (profile && !employer)
+                form(
+                    action=`/employer/applied/add/${detailJob.id}`
+                    method="POST"
+                )
+                    button(
+                        type="submit"
+                        class="btn btn-success btn-block apply"
+                    ) Ứng tuyển
+            else
+                if(employer)
+                else    
+                    button(
+                        class="btn btn-success btn-block apply"
+                        none-apply
+                    ) Ứng tuyển
