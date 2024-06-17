@@ -1,3 +1,64 @@
 extends ../../layouts/default2.pug
-include ../../mixins/alert.pug
 block main
+  h1(class="mb-4") DANH SÁCH ĐƠN ỨNG TUYỂN
+  .card.mb-3
+    .card-header Danh sách
+    .card-body
+      .row
+        .col-8
+      table(class="table table-hover table-sm")
+        thead
+          tr
+            th STT
+            th Họ tên
+            th Email
+            th Phone
+            th Trạng thái
+            th Hành động
+        tbody
+          if users.length > 0
+            each user, index in users
+              tr
+                td #{index + 1}
+                td #{user.fullName}
+                td #{user.email}
+                td #{user.phone}
+                td 
+                  if (user.status === "active")
+                    a(
+                      href="javascript:;"
+                      class="badge badge-success"
+                      data-status="inactive"
+                      data-id=user.id
+                      button-change-status-cv
+                    ) Đã duyệt
+                  else
+                    a(
+                      href="javascript:;"
+                      class="badge badge-danger"
+                      data-status="active"
+                      data-id=user.id
+                      button-change-status-cv
+                    ) Chưa duyệt
+                td
+                  button(class="btn1 btn-danger" data-id=user.id button-delete-cv) Xóa
+                  a(
+                    href=`/employer/detail-cv/${user.id}`
+                    class="btn1 btn-info btn-sm ml-1"
+                    ) Chi tiết
+                
+          else
+            tr
+              td(colspan="5") Không có ứng viên nào
+    form(
+      form-delete-cv
+      method="POST"
+      action=""
+      data-path="/employer/deleted"
+    )
+    form(
+      form-change-status-cv
+      method="POST"
+      data-path="/employer/change-status"
+      action=""
+    ) 

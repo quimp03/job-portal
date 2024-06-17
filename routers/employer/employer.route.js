@@ -20,6 +20,9 @@ router.post("/applicant/create",
 router.get("/logout", controller.logout)
 router.get("/myPosted",controller.myPosted)
 router.delete("/myPosted/delete/:id", controller.myPostedDelete)
-router.get("/manage-posted", controller.managePosted)
-router.post("/applied/add/:id", controller.appliedPost)
+router.get("/manage-posted/:id", controller.managePosted)
+router.post("/applied/add/:idUser/:idApplicant", controller.appliedPost)
+router.delete("/deleted/:id", controller.deletedCv)
+router.patch("/change-status/:status/:id",controller.changeStatusPatch)
+router.get("/detail-cv/:id", controller.detailCv)
 module.exports = router;

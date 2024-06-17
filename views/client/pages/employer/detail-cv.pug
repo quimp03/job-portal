@@ -1,0 +1,45 @@
+extends ../../layouts/default3.pug
+include ../../mixins/alert.pug
+block main
+    +alert-success(3000)
+    .profile
+      h1 HỒ SƠ CÁ NHÂN
+      .separator
+        span.star -------------------------&starf;-------------------------
+      section.personal-info
+        h2 #{detailProfile.fullName}
+      section.details
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-circle-info
+              |  THÔNG TIN
+          p Giới tính: #{detailProfile.sex}
+          p Ngày sinh: #{moment(detailProfile.date).format("DD/MM/YYYY")}
+          p Email: #{detailProfile.email}
+          p Điện thoại: #{detailProfile.phone}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-briefcase
+              |  KĨ NĂNG
+          | !{detailProfile.kiNang}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-graduation-cap
+              |  HỌC VẤN
+          | !{detailProfile.hocVan}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-pen-fancy
+              |  KINH NGHIỆM
+          | !{detailProfile.kinhNghiem}
+        .info-item
+          a
+            h3
+              i.fa-solid.fa-chart-line
+              |  MỤC TIÊU
+          | !{detailProfile.mucTieu}
+      

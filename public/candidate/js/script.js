@@ -1,7 +1,6 @@
 //Delete Item
 const listButtonDelete = document.querySelectorAll("[button-delete-myPost]")
 if(listButtonDelete.length > 0){
-    console.log(listButtonDelete)
   listButtonDelete.forEach(button => {
     button.addEventListener("click", () => {
       const formDeleteItem = document.querySelector("[form-delete-myPost]")
@@ -36,3 +35,17 @@ if(showAlert) {
   });
 }
 // End show-alert
+// upload anh bên candidate
+const uploadImage = document.querySelector("[upload-image]")
+if(uploadImage){
+    console.log(uploadImage)
+    const uploadImageInput = uploadImage.querySelector("[upload-image-input]")
+    const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]")
+    uploadImageInput.addEventListener("change",()  => {
+        const file =uploadImageInput.files[0]
+        if(file){
+            uploadImagePreview.src = URL.createObjectURL(file)
+        }
+    })
+}
+// end upload imag ben candidate

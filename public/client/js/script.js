@@ -53,3 +53,43 @@ if (buttonApply) {
   });
 }
 // end none apply
+//button-delete-cv
+const listButtonDeleteCv = document.querySelectorAll('[button-delete-cv]')
+if(listButtonDeleteCv.length  > 0){
+  listButtonDeleteCv.forEach(button => {
+    const formDeletedCv = document.querySelector("[form-delete-cv]")
+    button.addEventListener("click", () => {
+      const id = button.getAttribute('data-id')
+      const dataPath = formDeletedCv.getAttribute("data-path")
+      const action = `${dataPath}/${id}?_method=DELETE`
+      const isConfirm = confirm("Bạn có chắc muốn xóa không?")
+      if(isConfirm){
+        formDeletedCv.action = action
+        formDeletedCv.submit()
+      }
+    })
+  })
+}
+//end button-delete-cv
+//button-change-status-cv
+const buttonChangeStatusCv = document.querySelectorAll("[button-change-status-cv]")
+if(buttonChangeStatusCv.length > 0){
+  buttonChangeStatusCv.forEach(button => {
+    const formChangeStatusCv = document.querySelector("[form-change-status-cv]")
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id")
+      const status = button.getAttribute("data-status")
+      if(status == "inactive"){
+        return
+      }
+      const dataPath = formChangeStatusCv.getAttribute("data-path")
+      const action = `${dataPath}/${status}/${id}?_method=PATCH`
+      const isConfirm = confirm("Bạn có chắc muốn duyệt đơn tuyển dụng này?")
+      if(isConfirm){
+        formChangeStatusCv.action = action 
+        formChangeStatusCv.submit()
+      }
+    })
+  })
+}
+//button-change-status-cv

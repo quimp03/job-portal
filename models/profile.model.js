@@ -14,7 +14,7 @@ const profileSchema = new mongoose.Schema(
     mucTieu: String,
     status: {
       type: String,
-      default: "active"
+      default: "inactive"
     },
     deleted: {
       type: Boolean,

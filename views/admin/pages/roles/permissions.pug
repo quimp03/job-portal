@@ -155,6 +155,35 @@ block main
             each item in records
               td(class="text-center")
                 input(type="checkbox")
+          //- Blog
+          tr
+            td(colspan="4")
+              b Blog
+          tr(data-name="blogs_view")
+            td Xem
+            each item in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="blogs_create")
+            td Thêm mới
+            each item in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="blogs_status")
+            td Trạng thái
+            each item in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="blogs_edit")
+            td Chỉnh sửa
+            each item in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="blogs_delete")
+            td Xóa
+            each item in records
+              td(class="text-center")
+                input(type="checkbox")
       form(
         form-change-permissions
         method="POST"

@@ -4,7 +4,7 @@ const Employer = require("../../models/employer.model")
 const JobsCategory = require("../../models/jobs-category.model");
 const PositionCategory = require("../../models/positions-category.model")
 const Apllicant = require("../../models/jobs.model")
-const Profile = require("../../models/cv.model")
+const Profile = require("../../models/profile.model")
 const Candidate = require("../../models/candidate.model")
 const createTreeHelper = require("../../helpers/createTree.helper");
 module.exports.register = async(req, res) => {
@@ -138,22 +138,78 @@ module.exports.myPostedDelete = async(req, res) => {
         console.log(error)
     }
 }
-module.exports.managePosted = async(req, res) => {
-  res.render("client/pages/employer/manage-posted", {
-    pageTitle: "Trang quản lí hồ sơ cá nhân"
-  })
-}
+module.exports.managePosted = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const applicants = await Apllicant.find({
+      parent_id: id,
+      deleted: false
+    });
+    const users = [];
+    for (const applicant of applicants) {
+      for (const userId of applicant.uers_applied) {
+        const profile = await Profile.findOne({
+          _id: userId,
+          deleted: false
+        });
+        
+        if (profile) {
+          users.push(profile);
+        }
+      }
+    }
+    res.render("client/pages/employer/manage-posted", {
+      pageTitle: "Trang quản lí hồ sơ cá nhân",
+      users: users
+    });
+  } catch (error) {
+    console.error("Lỗi khi lấy dữ liệu:", error);
+    res.status(500).send("Lỗi khi lấy dữ liệu");
+  }
+};
 module.exports.appliedPost = async(req, res) => {
-  const tokenUser = req.cookies.tokenUser
-  const candidate = await Candidate.findOne({
-    tokenUser: tokenUser,
-    deleted: false
+  const idUser = req.params.idUser
+  const idCv = await Profile.findOne({
+    parent_id: idUser
   })
-  const profile = await Profile.findOne({
-    parent_id: candidate.id
-  })
-  res.render("client/pages/employer/manage-posted", {
-    profile: profile
+  const idApplicant = req.params.idApplicant
+  const job = await Apllicant.updateOne({
+    _id: idApplicant
+  }, {
+    $push: { uers_applied: idCv.id }
   })
   res.redirect("back")
+}
+module.exports.deletedCv = async(req, res) => {
+  const id = req.params.id
+  await Profile.updateOne({
+    _id: id
+  },
+    {
+      deleted: true
+    }
+  )
+  res.redirect("back")
+}
+module.exports.changeStatusPatch = async(req, res) => {
+  const id = req.params.id
+  const status = req.params.status
+  await Profile.updateOne({
+    _id: id,
+    deleted: false
+  }, {
+    status: status
+  })
+  res.redirect("back")
+}
+module.exports.detailCv = async(req, res) => {
+  const id = req.params.id
+  const detailProfile = await Profile.findOne({
+    _id: id,
+    deleted: false
+  })
+  res.render("client/pages/employer/detail-cv", {
+    pageTitle: "Trang chi tiết cv",
+    detailProfile: detailProfile
+  })
 }

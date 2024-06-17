@@ -1,4 +1,5 @@
 const Candidate = require("../../models/candidate.model")
+const moment = require('moment')
 const md5 = require("md5");
 const generateHelper = require("../../helpers/generate.helper");
 const ForgotPassword = require("../../models/forgot-password.model")
@@ -159,6 +160,10 @@ module.exports.profilePost = async(req, res) => {
   })
   const tokenProfile =  generateHelper.generateRandomString(30)
   const profile = new Profile(req.body)
+  let dateObject = new Date(profile.date);
+  let momentObj = moment(dateObject);
+  let formattedDate = momentObj.format('YYYY-MM-DD');
+  profile.date = formattedDate
   profile.parent_id = user.id
   profile.tokenProfile = tokenProfile
   await profile.save()
@@ -169,7 +174,6 @@ module.exports.detailProfile = async(req, res) => {
   const user = req.cookies.tokenProfile
   const inforUser = await Profile.findOne({
     tokenProfile: user,
-    status: "active",
     deleted: false
   })
   res.render("client/pages/candidate/detail-profile", {
@@ -182,7 +186,6 @@ module.exports.editProfile = async(req, res) =>{
   const profile = await Profile.findOne({
     _id: id,
     deleted: false,
-    status: "active"
   })
   res.render("client/pages/candidate/edit-profile", {
     pageTitle: "Trang chỉnh sửa",

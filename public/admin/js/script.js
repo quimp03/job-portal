@@ -5,7 +5,6 @@ if(filterStatus.length > 0){
    filterStatus.forEach((button) => {
     button.addEventListener("click", () => {
         const status = button.getAttribute("button-status")
-        console.log(status)
         if(status){
             url.searchParams.set("status", status)
         }else{
@@ -89,7 +88,6 @@ if(checkboxMulti) {
     inputId.addEventListener("click", () => {
       const countInputIdChecked = checkboxMulti.querySelectorAll("input[name='id']:checked").length;
       const lengthInputId = listInputId.length;
-
       if(countInputIdChecked == lengthInputId) {
         inputCheckAll.checked = true;
       } else {

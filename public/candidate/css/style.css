@@ -20,6 +20,9 @@ body{
     margin-left: -100px;
     color:rgb(255, 255, 255);
 }
+.logo i{
+    color: white;
+}
 
 #header{
     background:#0E9249;
@@ -895,7 +898,9 @@ ul, ul.sub-menu, ul.sub-menu li {
     border-radius: 2px;
     margin-left: 0px;
 }
-
+.btn-info:hover{
+    text-decoration: none;
+}
 
 /* my posted */
 

@@ -22,21 +22,20 @@ include ../mixins/sub-menu.pug
                 +sub-menu(layoutPositionCategory)
         li
           a(href='/blog') Blog Việc làm
-        if(user)
-          if(profile)
+        if (user)
+          if (profile)
             li
-              a(href='candidate/detail-profile') Hồ sơ cá nhân
+              a(href='/candidate/detail-profile') Hồ sơ cá nhân
           else
             li
-              a(href='candidate/profile') Hồ sơ cá nhân
-        if(employer)
+              a(href='/candidate/profile') Hồ sơ cá nhân
+        if (employer)
           li
             a(href='/employer/applicant/create') Đăng tin tuyển dụng
-        if(user)
+        if (user)
           li
             a(
               class="inforUser"
-              href=`/candidate/my-account`
             ) #{user.fullName}
             ul.sub-menu
               li
@@ -53,7 +52,7 @@ include ../mixins/sub-menu.pug
               li
                 a(href='/employer/myPosted') Bài đăng của tôi
               li
-                a(href='/employer/manage-posted') Quản lí đơn tuyển dụng
+                a(href=`/employer/manage-posted/${employer.id}`) Quản lí đơn tuyển dụng
         else
           li
             a(href='') Đăng nhập 

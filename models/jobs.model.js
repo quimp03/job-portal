@@ -26,6 +26,10 @@ const jobSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    uers_applied:{
+        type: Array,
+        default: []
+    },
     slug: {
         type: String,
         slug: "title",

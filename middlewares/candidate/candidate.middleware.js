@@ -20,7 +20,6 @@ module.exports.profile = async (req, res, next) => {
     const profile = await Profile.findOne({
       tokenProfile: req.cookies.tokenProfile,
       deleted: false,
-      status: "active"
     })
     if(profile) {
       res.locals.profile = profile;

@@ -24,16 +24,17 @@ block main
                 div(class="mb-4") <i class="fa-solid fa-envelope"></i> #{detailJob.email}
             if (profile && !employer)
                 form(
-                    action=`/employer/applied/add/${detailJob.id}`
+                    form-apply
+                    action=`/employer/applied/add/${user.id}/${detailJob.id}`
                     method="POST"
                 )
                     button(
+                        button-apply
                         type="submit"
                         class="btn btn-success btn-block apply"
                     ) Ứng tuyển
             else
-                if(employer)
-                else    
+                if (!employer) 
                     button(
                         class="btn btn-success btn-block apply"
                         none-apply
