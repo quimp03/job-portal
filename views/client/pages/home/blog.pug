@@ -18,7 +18,7 @@ block main
               // text
               .blog-box-text
                 strong IT
-                a(href='blog1.html') #{blog.title}
+                a(href=`/blog/detail/${blog.id}`) #{blog.title}
                 .blog-author
                   .blog-author-img
                     img(src=blog.thumbnail alt='')

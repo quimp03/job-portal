@@ -1,11 +1,12 @@
 const md5 = require("md5");
+const ForgotPassword = require("../../models/forgot-password.model")
+const sendEmailHelper = require("../../helpers/sendEmail.helper")
 const generateHelper = require("../../helpers/generate.helper");
 const Employer = require("../../models/employer.model")
 const JobsCategory = require("../../models/jobs-category.model");
 const PositionCategory = require("../../models/positions-category.model")
 const Apllicant = require("../../models/jobs.model")
 const Profile = require("../../models/profile.model")
-const Candidate = require("../../models/candidate.model")
 const createTreeHelper = require("../../helpers/createTree.helper");
 module.exports.register = async(req, res) => {
     res.render("client/pages/employer/register")
@@ -212,4 +213,82 @@ module.exports.detailCv = async(req, res) => {
     pageTitle: "Trang chi tiết cv",
     detailProfile: detailProfile
   })
+}
+
+module.exports.forgotPassword = async(req, res) => {
+  res.render("client/pages/employer/forgot-password", {
+    pageTitle: "Trang quên mật khẩu"
+  })
+}
+module.exports.forgotPasswordPost = async(req, res) => {
+  const email = req.body.email
+  const user = await Employer.findOne({
+    email: email,
+    deleted: false
+  })
+  if(!user){
+    req.flash("error", "Email không tồn tại")
+    res.redirect("back")
+    return
+  }
+  const otp = generateHelper.generateRandomNumber(6)
+  const objectForgotPassword = {
+    email: email,
+    otp: otp,
+    expireAt: Date.now() + 3*60*1000 
+    // expireAt: ton tai trong timeset
+  }
+  const forgotPassword = new ForgotPassword(objectForgotPassword)
+  await forgotPassword.save()
+  const subject = "Lấy lại mật khẩu"
+  const text = `Mã OTP xác thực tài khoản của bạn là : ${otp}. Vui lòng không cung cấp này với bất kì ai.`
+  sendEmailHelper.sendEmail(email,subject, text)
+  res.redirect(`/employer/password/otp?email=${email}`)
+}
+module.exports.otpPassword = async(req, res) => {
+  const email = req.query.email
+  res.render("client/pages/employer/otp-password", {
+    pageTitle: "Nhập mã otp",
+    email: email
+  })
+}
+module.exports.otpPasswordPost = async(req, res) => {
+  const email = req.body.email
+  const otp = req.body.otp
+  const result = await ForgotPassword.findOne({
+    email: email,
+    otp: otp
+  })
+  if(!result){
+    req.flash("error", "Mã OTP không hợp lệ")
+    res.redirect("back")
+    return
+  }
+  const employer = await Employer.findOne({
+    email: email
+  })
+  res.cookie("tokenEmployer", employer.tokenEmployer)
+  res.redirect("/employer/password/reset")
+}
+module.exports.resetPassword = async(req, res) => {
+  res.render("client/pages/employer/reset-password", {
+    pageTitle: "Reset password"
+  })
+}
+module.exports.resetPasswordPost = async(req, res) => {
+  const password = req.body.password
+  const confirmPassword = req.body.confirmPassword
+  const tokenEmployer = req.cookies.tokenEmployer
+  if(password != confirmPassword){
+    req.flash("error", "Xác nhận mật khẩu không khớp")
+    res.redirect("back")
+    return
+  }
+  await Employer.updateOne({
+    tokenEmployer: tokenEmployer
+  }, {
+    password: md5(password)
+  })
+  req.flash("success", "Đổi mật khẩu thành công!")
+  res.redirect("/employer/login")
 }

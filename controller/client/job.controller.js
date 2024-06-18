@@ -1,6 +1,7 @@
 const Applicant =require("../../models/jobs.model")
 const jobCategory = require("../../models/jobs-category.model")
 const positionCategory = require("../../models/positions-category.model")
+const paginationHelper = require("../../helpers/pagination.helper")
 module.exports.index = async(req, res) => {
     const find = {
         deleted: false,
@@ -12,7 +13,11 @@ module.exports.index = async(req, res) => {
         find.title = regex;
     }
     // End Search
-    const records = await Applicant.find(find)
+     // Pagination
+     const countJob = await Applicant.countDocuments(find);
+     const objectPagination = paginationHelper(req,countJob)
+     //  End Pagination
+    const records = await Applicant.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip)
    
      //position
      for (const job of records) {
@@ -39,70 +44,71 @@ module.exports.index = async(req, res) => {
     if(records.length === 0){
         req.flash("error", "Không tìm thấy công ty nào!")
     }
+   
     res.render("client/pages/job/index", {
         pageTitle: "Trang công việc",
         records: records,
-        keyword: req.query.keyword
+        keyword: req.query.keyword,
+        objectPagination: objectPagination
     })
 }
-module.exports.jobsCategory = async(req, res) => {
-    const slugJobCategory = req.params.slugJobsCategory
-    //skills
+module.exports.jobsCategory = async (req, res) => {
+    const slugJobCategory = req.params.slugJobsCategory;
+
+    // find theo slug skill
     const skillCategory = await jobCategory.findOne({
         deleted: false,
         status: "active",
         slug: slugJobCategory
-    })
-    //end skills
-   
-    //pos
+    });
+
+    // find theo slug pos
     const posCategory = await positionCategory.findOne({
         deleted: false,
         status: "active",
         slug: slugJobCategory
-    })
-    let records = []
-    //end pos
-    if(skillCategory){
-         records = await Applicant.find({
-            deleted:false,
-            status: "active",
-            skill_category_id: skillCategory.id
-        })
-    }else{
-        records = await Applicant.find({
-            deleted:false,
-            status: "active",
-            position_category_id: posCategory.id
-        })
+    });
+
+    let find = {
+        deleted: false,
+        status: "active"
+    };
+
+    if (skillCategory) {
+        find.skill_category_id = skillCategory.id;
+    } else if (posCategory) {
+        find.position_category_id = posCategory.id;
     }
-    //viTri
+
+    // Pagination
+    const countJob = await Applicant.countDocuments(find);
+    const objectPagination = paginationHelper(req, countJob);
+
+    const records = await Applicant.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+
     for (const job of records) {
         const skill = await jobCategory.findOne({
             _id: job.skill_category_id,
             deleted: false
         });
         if (skill) {
-            job.kiNang = skill.title
+            job.kiNang = skill.title;
         }
-    }
-    //end viTri
-    //kiNang
-    for (const job of records) {
-        const skill = await positionCategory.findOne({
+        
+        const position = await positionCategory.findOne({
             _id: job.position_category_id,
             deleted: false
         });
-        if (skill) {
-            job.viTri = skill.title
+        if (position) {
+            job.viTri = position.title;
         }
     }
-    //end kiNang
     res.render("client/pages/job/index", {
-        pageTitle : "Trang công việc",
-        records: records
-    })
-}
+        pageTitle: "Trang công việc",
+        records: records,
+        objectPagination: objectPagination
+    });
+};
 module.exports.detailJob = async(req, res) => {
     const id = req.params.id
     const detailJob = await Applicant.findOne({

@@ -1,5 +1,6 @@
 extends ../../layouts/default2.pug
 include ../../mixins/alert.pug
+include ../../mixins/pagination.pug
 block main
   +alert-error(5000)
   .search
@@ -28,3 +29,4 @@ block main
             br
             .flex-btn
               a.btn(href=`/job/detail/${item.id}`)  View details
+  +pagination(objectPagination)

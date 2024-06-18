@@ -1,0 +1,68 @@
+extends ../../layouts/default.pug
+block main
+    h1 Thống kê
+    .main
+      .cards
+        .card1
+          .card-content
+            .number #{countEmployer}
+            .card-name Nh&agrave; Tuy&#x1EC3;n D&#x1EE5;ng
+          .icon-box
+            i.fa-solid.fa-users
+        .card2
+          .card-content
+            .number #{countCandidate}
+            .card-name &#x1EE8;ng Vi&ecirc;n
+          .icon-box
+            i.fa-solid.fa-user
+        .card3
+          .card-content
+            .number #{countJob}
+            .card-name Vi&#x1EC7;c L&agrave;m
+          .icon-box
+            i.fa-solid.fa-suitcase
+        .card4
+          .card-content
+            .number #{countJobActive}
+            .card-name B&agrave;i &dstrok;&abreve;ng &dstrok;&atilde; duy&#x1EC7;t
+          .icon-box
+            i.fa-solid.fa-check
+        .card5
+          .card-content
+            .number #{countJobInactive}
+            .card-name B&agrave;i &dstrok;&abreve;ng ch&#x1B0;a &dstrok;&#x1B0;&#x1EE3;c duy&#x1EC7;t
+          .icon-box
+            i.fa-solid.fa-xmark
+        .card6
+          .card-content
+            .number #{countJobAppied}
+            .card-name B&agrave;i &dstrok;&abreve;ng &#x1EE9;ng tuy&#x1EC3;n nhi&#x1EC1;u nh&#x1EA5;t
+          .icon-box
+            i.fa-solid.fa-list-check
+        .card7
+          .card-content
+            .number #{countBlog}
+            .card-name Blog
+          .icon-box
+            i.fa-solid.fa-blog
+      .tables
+        .recent-jobs
+          .heading
+            h2 Đơn tuyển dụng gần đây
+          table.jobs
+            thead
+            td <b>Tên công việc
+            td <b>Tên công ty
+            td <b>Trạng thái
+            td <b>Khu vực
+            tbody
+              each employer in profiles
+                tr
+                  td #{employer.title}
+                  td #{employer.companyName}
+                  td
+                    if (employer.status =="active")
+                      | đã duyệt
+                    else 
+                      | chưa duyệt
+                  td #{employer.viTri}

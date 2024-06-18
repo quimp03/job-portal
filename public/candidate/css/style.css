@@ -411,6 +411,7 @@ ul, ul.sub-menu, ul.sub-menu li {
     padding: 15px;
     border-radius: 30px;
     font-size: 16px;
+    margin-left: 50px;
 }
 #search-box #search-btn:hover{
     background-color: rgb(215, 254, 222);
@@ -1121,4 +1122,7 @@ button {
 }
 .profile a:hover{
     color: #00B14F;
+}
+.pagination{
+    margin: 20px 0px 20px 25px;
 }

@@ -8,6 +8,5 @@ module.exports = (req, countJob) => {
     }
     objectPagination.skip = (objectPagination.currentPage - 1) * objectPagination.limitItems;
     objectPagination.totalPage = Math.ceil(countJob/objectPagination.limitItems);
-  
     return objectPagination;
   }

@@ -25,4 +25,12 @@ router.post("/applied/add/:idUser/:idApplicant", controller.appliedPost)
 router.delete("/deleted/:id", controller.deletedCv)
 router.patch("/change-status/:status/:id",controller.changeStatusPatch)
 router.get("/detail-cv/:id", controller.detailCv)
+
+
+router.get("/password/forgot", controller.forgotPassword)
+router.post("/password/forgot", controller.forgotPasswordPost)
+router.get("/password/otp", controller.otpPassword)
+router.post("/password/otp", controller.otpPasswordPost)
+router.get("/password/reset", controller.resetPassword)
+router.post("/password/reset", controller.resetPasswordPost)
 module.exports = router;
