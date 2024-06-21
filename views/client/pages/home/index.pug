@@ -3,12 +3,14 @@ include ../../mixins/alert.pug
 block main
     +alert-success(5000)
     section#home.home
+      img#banner(src=settingsGeneral.banner, alt="Banner Image")
       .content
         h3
           | FIND 
           br
           | NEW JOB
         a.btn(href='/job') Show More
+
     section.company-container
         h2.company-heading  Đơn tuyển dụng nổi bậc
         .box-container

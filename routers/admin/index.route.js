@@ -7,7 +7,8 @@ const roleRoute = require("./roles.route");
 const accountRoute = require("./accounts.route")
 const authRoute = require("./auth.route.js")
 const myAccountRoute = require("./myAccount.route.js")
-const statis = require("./statis.route.js")
+const statisRoute = require("./statis.route.js")
+const generalRoute = require("./general.route.js")
 const systemConfig = require("../../config/system")
 const authMiddleware = require("../../middlewares/admin/auth.middleware");
 module.exports = (app) => {
@@ -21,5 +22,6 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/accounts",authMiddleware.requireAuth, accountRoute)
     app.use(PATH_ADMIN + "/auth", authRoute)
     app.use(PATH_ADMIN + "/my-account", authMiddleware.requireAuth, myAccountRoute)
-    app.use(PATH_ADMIN + "/statis", authMiddleware.requireAuth, statis)
+    app.use(PATH_ADMIN + "/statis", authMiddleware.requireAuth, statisRoute)
+    app.use(PATH_ADMIN + "/setting", authMiddleware.requireAuth, generalRoute)
 }

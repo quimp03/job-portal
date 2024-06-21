@@ -433,7 +433,6 @@ ul, ul.sub-menu, ul.sub-menu li {
     margin-left: 140px;
     font-size: 40px;
     margin-bottom: 50px;
-
 }
 
 .company-container .box-container{
@@ -658,15 +657,25 @@ ul, ul.sub-menu, ul.sub-menu li {
 }
 /* end page detail */
 /* find home */
+#home.home img {
+    width: 100%; 
+    position: absolute;
+    height: 100%;
+    object-fit: cover; 
+    z-index: -1;
+    
+}
 .home{
-    background-image: url(http://res.cloudinary.com/dql6irmti/image/upload/v1717219463/jatt48ha6brzg5cuyu1a.jpg);
     align-items: center;
-    min-height: 80vh;
+    min-height: 110vh;
     background-size: cover;
     background-position: center;
+    position: relative;
+    margin-bottom: 0px;
 }
 .home .content{
     margin-left: 230px;
+    z-index: 1;
 }
 .home .content h3{
     font-size: 5rem;

@@ -5,13 +5,15 @@ const employerRoute = require("../employer/employer.route")
 const Blog = require("./blog.route")
 const categoryMiddleware = require("../../middlewares/client/category.middleware");
 const userMiddleware = require("../../middlewares/candidate/candidate.middleware");
-const employerMiddleware = require("../../middlewares/employer/employer.middleware")
+const employerMiddleware = require("../../middlewares/employer/employer.middleware");
+const settingMiddleware = require("../../middlewares/client/setting.middleware");
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
   app.use(categoryMiddleware.positionCategory)
   app.use(userMiddleware.infoUser)
   app.use(userMiddleware.profile)
   app.use(employerMiddleware.infoEmployer)
+  app.use(settingMiddleware.settingsGeneral);
   app.use("/", homeRoutes);
   app.use("/job", jobRoutes)
   app.use("/candidate", candidateRoute)
