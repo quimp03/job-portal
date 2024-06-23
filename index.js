@@ -35,6 +35,9 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 const port = process.env.PORT
 routeClient(app)
 routeAdmin(app)
+app.get("*", (req, res) =>{
+    res.render("client/pages/error/404")
+})
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
 });
