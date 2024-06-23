@@ -200,6 +200,7 @@ a{
     overflow: hidden;
     display: flex;
     position: relative;
+    z-index: -1;
 }
 .blog-box-img img{
     width: 100%;
