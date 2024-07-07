@@ -28,7 +28,7 @@ body{
 #header .container #main-menu a:hover{
     background-color: #abffd0;
     color: var(--white);
-    color:black
+    color:black;
 }
 nav{
     display: flex;
@@ -59,6 +59,7 @@ nav{
     padding-bottom: 0px;
     margin-top: 4px;
     display: none;
+    z-index: 100; 
 }
 #main-menu li:hover>ul.sub-menu{
     display: block;

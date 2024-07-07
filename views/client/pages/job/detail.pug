@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 block main
+    +alert-error(5000)
     .view-company
         h3.heading 
             <i class="fa-solid fa-window-minimize"></i>
@@ -22,7 +24,9 @@ block main
                 div(class="mb-4") <i class="fa-solid fa-phone"></i> #{detailJob.phoneNumber}
             if (detailJob.email)
                 div(class="mb-4") <i class="fa-solid fa-envelope"></i> #{detailJob.email}
-            if (profile && !employer)
+            if (!profile && !employer && !user)
+                a(href="/candidate/login" class="btn btn-success btn-block apply") Ứng tuyển 
+            else if (profile && !employer)
                 form(
                     form-apply
                     action=`/employer/applied/add/${user.id}/${detailJob.id}`
@@ -34,7 +38,7 @@ block main
                         class="btn btn-success btn-block apply"
                     ) Ứng tuyển
             else
-                if (!employer) 
+                if (!employer)
                     button(
                         class="btn btn-success btn-block apply"
                         none-apply

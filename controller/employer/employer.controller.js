@@ -174,11 +174,25 @@ module.exports.appliedPost = async(req, res) => {
     parent_id: idUser
   })
   const idApplicant = req.params.idApplicant
-  const job = await Apllicant.updateOne({
+  let check = false
+  const checkUser = await Apllicant.findOne({
     _id: idApplicant
-  }, {
-    $push: { uers_applied: idCv.id }
   })
+  for (const user of checkUser.uers_applied) {
+    if(user == idCv.id){
+      check = true
+    }
+  }
+  if(check == false){
+    const job = await Apllicant.updateOne({
+      _id: idApplicant
+    }, {
+      $push: { uers_applied: idCv.id }
+    })
+    req.flash("success", "Nộp hồ sơ thành công")
+  }else{
+    req.flash("error", "Bạn đã nộp hồ sơ!")
+  }
   res.redirect("back")
 }
 module.exports.deletedCv = async(req, res) => {

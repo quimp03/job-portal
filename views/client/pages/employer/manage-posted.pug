@@ -1,5 +1,8 @@
 extends ../../layouts/default2.pug
+include ../../mixins/alert.pug
 block main
+  +alert-error(5000)
+  +alert-success(5000)
   h1(class="mb-4") DANH SÁCH ĐƠN ỨNG TUYỂN
   .card.mb-3
     .card-header Danh sách
@@ -46,7 +49,6 @@ block main
                     href=`/employer/detail-cv/${user.id}`
                     class="btn1 btn-info btn-sm ml-1"
                     ) Chi tiết
-                
           else
             tr
               td(colspan="5") Không có ứng viên nào
