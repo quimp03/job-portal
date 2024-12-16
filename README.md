@@ -33,7 +33,7 @@ To set up the project locally, follow these steps:
 1. Run the application:
     ```bash
     npm start
-2. Open your web browser and navigate to home page: ví dụ port == 3000
+2. Open your web browser and navigate to home page: exameple port == 3000
    http://localhost:3000 to access the application.
 3. Enjoy the website :)))
 
