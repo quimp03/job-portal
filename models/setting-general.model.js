@@ -14,6 +14,5 @@ const settingGeneralSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
 const SettingGeneral = mongoose.model("SettingGeneral", settingGeneralSchema, "settings-general");
 module.exports = SettingGeneral;

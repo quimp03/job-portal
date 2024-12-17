@@ -1,6 +1,7 @@
-const General = require("../../models/setting-genaral.model")
+const General = require("../../models/setting-general.model")
 module.exports.general = async(req, res) =>{
     const settingGeneral = await General.findOne({})
+    console.log(settingGeneral)
     res.render("admin/pages/setting/general", {
         pageTitle: "Trang cài đặt",
         settingGeneral: settingGeneral
