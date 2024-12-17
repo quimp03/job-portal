@@ -54,14 +54,14 @@ include ../mixins/sub-menu.pug
                 a(href=`/employer/manage-posted/${employer.id}`) Quản lí đơn tuyển dụng
         else
           li
-            a(href='') Đăng nhập 
+            a(href='/candidate/login') Đăng nhập 
             ul.sub-menu
               li
                 a(href='/candidate/login') Ứng viên
               li
                 a(href='/employer/login') Nhà tuyển dụng
           li
-            a(href='') Đăng ký
+            a(href='/candidate/register') Đăng ký
             ul.sub-menu
               li
                 a(href='/candidate/register') Ứng viên
